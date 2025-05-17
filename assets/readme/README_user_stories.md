@@ -14,9 +14,11 @@ As a ***webmaster***, I would ***need to have full access to the site*** in orde
 
 - An admin page will total rights
 
+
 **Tasks**
 
 - Implement an functional and visibly pleasing Django Admin interface where all necessary inforamtion is presented in a clear and easy way
+
 
 ### Member - Album and photo handling
 
@@ -35,6 +37,8 @@ As a ***member of the photo club***, I would like to **create albums and post my
 - Implement showing albums and photos on the website
 - Make sure private albums are not shown to visitors or users
 
+**Priority:**
+
 ### Member - Create events
 
 As a ***member***, I would like to ***post information about upcoming events***, in order to ***meet other members and engage more in the hobby***.
@@ -51,6 +55,7 @@ As a ***member***, I would like to ***post information about upcoming events***,
 - Make sure private events are not shown to visitors or users
 
 ***Note:*** Members should not be able to delete events. If an event is canceled, the event should be changed with the information that it has been canceled. If needed, webmaster can be contacted to delete all information about the event. 
+
 
 ### Members & Users - Give feedback on photographs
 
@@ -82,6 +87,7 @@ As a ***member or registered user***, I would like to ***comment on upcoming eve
 - Make sure users comments are not displayed unless approved by webmaster
 - Display approved comments in relation to related event
 
+
 ### User registration
 
 As a ***visitor to the site***, I would like to ***register to become a user***, in order to ***interact more with the club and possibly become a member***.
@@ -93,3 +99,5 @@ As a ***visitor to the site***, I would like to ***register to become a user***,
 **Task**
 
 - Implement a sign up form that registers a new user
+
+
