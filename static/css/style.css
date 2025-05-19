@@ -1,0 +1,82 @@
+/*** Fonts from Google Fonts ***/
+@import url('https://fonts.googleapis.com/css2?family=Chango&family=Kumbh+Sans:wght@100..900&display=swap');
+
+:root {
+    --primary-font: "Kumbh Sans", sans-serif;
+    --headline-font: "Chango", sans-serif;
+
+    --background-color: #000000;
+    --headline-color: #ECE2D0;
+    --font-color: #f6f0ed;
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: var(--primary-font);
+    color: var(--font-color);
+}
+
+h1,
+h2,
+h3 {
+    color: var(--headline-color);
+    font-family: var(--headline-font)
+}
+
+#navbar {
+    padding: 0px;
+}
+
+#nav-area {
+    background-color: var(--background-color);
+}
+
+.navbar-brand {
+    font-family: var(--headline-font);
+    color: var(--headline-color);
+}
+
+.navbar-toggler {
+    border-color: var(--headline-color);
+}
+
+/* Set the color of nav Hamburger toggler as rest of nav elements */
+/* Code found on https://www.geeksforgeeks.org/how-to-change-hamburger-toggler-color-in-bootstrap/ */
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg' %3E%3Cpath stroke='rgba(236, 226, 208, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24' /%3E%3C/svg%3E");
+}
+
+.nav-link {
+    font-family: var(--primary-font);
+    color: var(--headline-color);
+}
+
+.nav-link:hover {
+    text-decoration-line: underline;
+    color: var(--font-color);
+}
+
+main{
+        padding-top: 4rem;
+        padding-bottom: 1.5rem;
+}
+
+/* Hero section */
+#hero {
+  height: 300px;
+  width: 100%;
+  /*background-color: lightgreen;*/
+  background: url("../images/hero.jpg") no-repeat center center/cover;
+  position: relative;
+}
+
+#cover-text {
+  /* Final rbga value sets opacity so it's semi-transparent */
+  font-size: 130%;
+  position: absolute;
+  width: 80%;
+  min-height: 200px;
+  bottom: 30px;
+  padding-top: 40px;
+  padding-left: 10px;
+}
