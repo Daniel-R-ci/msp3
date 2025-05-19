@@ -22,6 +22,13 @@ h3 {
     color: var(--headline-color);
     font-family: var(--headline-font)
 }
+ /*h1{
+    font-size: large;
+ }*/
+
+ h2{
+    font-size: large;
+ }
 
 #navbar {
     padding: 0px;
@@ -57,8 +64,12 @@ h3 {
 }
 
 main{
-        padding-top: 4rem;
-        padding-bottom: 1.5rem;
+        padding: 1rem;
+}
+
+footer{
+    padding-top: 2px;
+    text-align: center;
 }
 
 /* Hero section */
@@ -79,4 +90,12 @@ main{
   bottom: 30px;
   padding-top: 40px;
   padding-left: 10px;
+}
+
+/***** TEST CSS *****/
+/***** FOR DEVELOPMENT PURPOSES ONLY *****/
+/***** MUST BE REMOVED BEFORE PROJECT SUBMISSION *****/
+
+.test-border{
+    border: 1px dashed lightgrey;
 }
