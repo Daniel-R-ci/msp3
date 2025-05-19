@@ -88,6 +88,19 @@ As a ***member or registered user***, I would like to ***comment on upcoming eve
 - Display approved comments in relation to related event
 
 
+## Club information
+
+As a ***visitor or registered member***, I would like to have a way to ***get more information about the ShutterClickers Photo Club and if need be contact them with questions*** in order to ***learn more about the club and possibly decide to be a member***.
+
+**Criteria**
+
+- Learn more about the club
+- Get in contact with the club
+
+**Tasks**
+
+- Implement a about page with contact form
+
 ### User registration
 
 As a ***visitor to the site***, I would like to ***register to become a user***, in order to ***interact more with the club and possibly become a member***.
