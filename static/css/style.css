@@ -1,6 +1,7 @@
-/*** Fonts from Google Fonts ***/
+/***** Fonts from Google Fonts *****/
 @import url('https://fonts.googleapis.com/css2?family=Chango&family=Kumbh+Sans:wght@100..900&display=swap');
 
+/***** root variables *****/
 :root {
     --primary-font: "Kumbh Sans", sans-serif;
     --headline-font: "Chango", sans-serif;
@@ -10,10 +11,21 @@
     --font-color: #f6f0ed;
 }
 
+/***** html tags *****/
+
 body {
     background-color: var(--background-color);
     font-family: var(--primary-font);
     color: var(--font-color);
+}
+
+main{
+    padding: 0px;
+}
+
+footer{
+    padding-top: 2px;
+    text-align: center;
 }
 
 h1,
@@ -29,6 +41,14 @@ h3 {
  h2{
     font-size: large;
  }
+ 
+ /***** Grid styling *****/
+
+ .col-padding{
+    padding-bottom: 15px;
+ }
+
+ /***** Navbar styling *****/
 
 #navbar {
     padding: 0px;
@@ -63,16 +83,7 @@ h3 {
     color: var(--font-color);
 }
 
-main{
-        padding: 1rem;
-}
-
-footer{
-    padding-top: 2px;
-    text-align: center;
-}
-
-/* Hero section */
+/***** Hero section *****/
 #hero {
   height: 300px;
   width: 100%;
@@ -81,8 +92,12 @@ footer{
   position: relative;
 }
 
+/***** Forms and button styling *****/
+.btn{
+    margin: 10px;
+}
+
 #cover-text {
-  /* Final rbga value sets opacity so it's semi-transparent */
   font-size: 130%;
   position: absolute;
   width: 80%;
