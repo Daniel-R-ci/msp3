@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main-tag %}
+
+<h1>Albums</h1>
+
+{% for album in album_list %}
+<h2>{{album}}</h2>
+{% endfor %}
+
+{% endblock main-tag %}

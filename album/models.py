@@ -4,10 +4,22 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
+###########################################
+# ALBUM CLASSES
+# ALL CLASSES RELATING TO ALBUM
+###########################################
+
+
+"""class publishedAlbumsManager(models.Manager):
+    def get_queryset(self):
+        return (
+            super().
+"""
+
 
 class Album(models.Model):
     """
-    Album: Contains photo album, belonings to -user-
+    Album: Contains photo album, belong to -user-
     """
     class Status(models.TextChoices):
         """
@@ -35,8 +47,18 @@ class Album(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now_add=True)
 
+    # objects = models.Manager()  # default manager
+    # published = publishedAlbumsManager()  # custom manager
+
     def __str__(self):
-        return self.name
+        return f"{self.name} - by {self.user}"
+
+
+
+###########################################
+# ALBUM PHOTO
+# ALL CLASSES RELATING TO PHOTO
+###########################################
 
 
 class Photo(models.Model):
@@ -63,4 +85,7 @@ class Photo(models.Model):
     image = CloudinaryField('image')
 
     def __str__(self):
-        return self
+        if self.title != "":
+            return f"image{self.pk}: {self.title} in album {self.album.name} by {self.album.user}"
+        return f"image{self.pk} in album {self.album.name} by {self.album.user}"
+  
