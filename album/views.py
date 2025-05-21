@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Album, Photo
 
 # Create your views here.
@@ -42,3 +42,30 @@ def album_list(request):
             "albums_preview": albums_preview
         }
     )
+
+
+def album_view(request, album_id):
+    """
+    Retrieves Album that matched album_id
+    Returns {album | photos (all photos  | photo_count (no of photos in album)}
+    """
+
+    queryset = Album.objects.filter(status=Album.Status.PUBLISHED)
+    album = get_object_or_404(queryset, pk=album_id)
+
+    photos = Photo.objects.filter(album=album_id)
+    photo_count = photos.count()
+
+    return render(
+        request,
+        "album/album.html",
+        {
+            "album": album,
+            "photos": photos,
+            "photo_count": photo_count
+         }
+    )
+
+
+def photo_view(request, photo_id):
+    return render(request, "base.html")

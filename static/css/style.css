@@ -92,12 +92,27 @@ h3 {
   position: relative;
 }
 
-/***** Album styling *****/
+/***** Albums (albums.html) styling *****/
 .preview_thumbnail
 {
     width: 100px;
     height: 100px;
     object-fit: cover;
+    margin: 5px;
+}
+
+.album-link{
+    text-decoration: none;
+}
+.album-link p {
+    color: var(--font-color)
+}
+
+/***** Album (album.html) styling *****/
+.album_thumbnail{
+    width: 250px;
+    height: 250px;
+    object-fit: scale-down;
     margin: 5px;
 }
 
@@ -122,4 +137,17 @@ h3 {
 
 .test-border{
     border: 1px dashed lightgrey;
+}
+
+/***** Media querys *****/
+
+
+@media (min-width: 992px) {
+
+    .album_thumbnail{
+        width: 450px;
+        height: 450px;
+        object-fit: scale-down;
+        margin: 5px;
+    }  
 }

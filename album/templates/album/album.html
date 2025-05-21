@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main-tag %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col12 text-center">
+            <h1>{{album.name}}</h1>
+        </div>
+        <div class="col-12">
+        <p>{{album.description}}</p>    
+        </div>
+        <div class="col-12 col-lg-4">
+            {% if album.user.first_name != "" %}
+                <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
+            {% else %}
+                <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
+            {% endif %}
+        </div>
+        <div class="col-12 col-lg-4">
+            <p>Number of photos i album: {{photo_count}}</p>
+        </div>
+        <div class="col-12 col-lg-4">
+            <p>Last updated on {{album.updated_on}}</p>
+        </div>
+        <div class="col-12 text-center">
+            {% for photo in photos %}
+            <a href="/albums/photo/{{photo.pk}}">
+                <img src="{{photo.image.url}}" class="album_thumbnail test-border" alt="A photograph">
+            </a>
+            {% endfor %}
+        </div>
+        <div class="col-12 text-center">
+            <a href="/albums/" alt="Button back to album" class="btn btn-light">Back to Albums</a>
+
+        </div>
+    </div>
+</div>
+
+{% endblock main-tag %}
