@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         {% for album, photos, photo_counts in albums_preview %}
-        <div class="col-12 col-md-6 col-xl-4 test-border">
+        <div class="col-12 col-md-6 col-xl-4">
             <a href="/albums/{{album.pk}}" class=" album-link">
                 <h2>{{album}}</h2>
                 <p>{{album.description}}</p>

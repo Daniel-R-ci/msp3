@@ -116,6 +116,12 @@ h3 {
     margin: 5px;
 }
 
+/***** Photo (photo.html styling *****/
+.photo{
+    max-width: 90%;
+    object-fit: contain;
+}
+
 /***** Forms and button styling *****/
 .btn{
     margin: 10px;

@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title-tag %}
+{{ album.name}} by {{album.user }}
+{% endblock title-tag %}
+
 {% block main-tag %}
 
 <div class="container-fluid">
@@ -27,7 +31,7 @@
         <div class="col-12 text-center">
             {% for photo in photos %}
             <a href="/albums/photo/{{photo.pk}}">
-                <img src="{{photo.image.url}}" class="album_thumbnail test-border" alt="A photograph">
+                <img src="{{photo.image.url}}" class="album_thumbnail" alt="A photograph">
             </a>
             {% endfor %}
         </div>

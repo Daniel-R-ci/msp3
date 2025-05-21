@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title-tag %}
+
+Photo by
+{% if photo.album.user.first_name != "" %}
+{{photo.album.user.first_name}} {{photo.album.user.last_name}}
+{% else %}
+{{photo.album.user}}
+{% endif %}
+
+{% endblock title-tag %}
+
+{% block main-tag %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 text-center">
+            {% if photo.title != "" %}
+            <h1>{{photo.title}}</h1>
+            <p>Photograph by
+                {% if photo.album.user.first_name != "" %}
+                {{photo.album.user.first_name}} {{photo.album.user.last_name}}
+                {% else %}
+                {{photo.album.user}}
+                {% endif %}
+            </p>
+            {% else %}
+            Photograph by
+            {% if photo.album.user.first_name != "" %}
+            {{photo.album.user.first_name}} {{photo.album.user.last_name}}
+            {% else %}
+            {{photo.album.user}}
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    {% if photo.description != "" %}
+    <div class="row">
+        <div class="col-12 text-center">
+            <p>{{photo.description}}</p>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12 text-center">
+            <img src="{{photo.image.url}}" class="photo" alt="A photograph">
+        </div>
+    </div>
+    {% if photo.technical != "" %}
+    <div class="row">
+        <div class="col12 text-center">
+            <p>Technical information: {{photo.technical}}</p>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12 text-center">
+            <a href="/albums/{{photo.album.pk}}" alt="Back to album page" class="btn btn-light">Back to {{photo.album.name}}</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock main-tag %}

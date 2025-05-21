@@ -68,4 +68,12 @@ def album_view(request, album_id):
 
 
 def photo_view(request, photo_id):
-    return render(request, "base.html")
+
+    queryset = Photo.objects.all()
+    photo = get_object_or_404(queryset, pk=photo_id)
+
+    return render(
+        request,
+        "album/photo.html",
+        {"photo": photo}
+    )
