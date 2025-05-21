@@ -11,4 +11,7 @@ class AlbumAdmin(admin.ModelAdmin):
     ordering = ['user', 'name']
 
 
-admin.site.register(Photo)
+@admin.register(Photo)
+class PhotoAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'album']
+    list_filter = ['album']

@@ -23,7 +23,7 @@ class Album(models.Model):
     """
     class Status(models.TextChoices):
         """
-        Text choises, to show if album is publish or in draft status
+        Text choices, to show if album is publish or in draft status
         """
         DRAFT = "DF", "Draft"
         PUBLISHED = "PB", "Published"
@@ -47,12 +47,8 @@ class Album(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now_add=True)
 
-    # objects = models.Manager()  # default manager
-    # published = publishedAlbumsManager()  # custom manager
-
     def __str__(self):
         return f"{self.name} - by {self.user}"
-
 
 
 ###########################################
@@ -86,6 +82,10 @@ class Photo(models.Model):
 
     def __str__(self):
         if self.title != "":
-            return f"image{self.pk}: {self.title} in album {self.album.name} by {self.album.user}"
-        return f"image{self.pk} in album {self.album.name} by {self.album.user}"
-  
+            msg = (
+                f"image{self.pk}: {self.title} in {self.album.name}"
+                f" by {self.album.user}"
+            )
+            return msg
+
+        return f"image{self.pk} in {self.album.name} by {self.album.user}"

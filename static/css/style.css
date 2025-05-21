@@ -92,6 +92,15 @@ h3 {
   position: relative;
 }
 
+/***** Album styling *****/
+.preview_thumbnail
+{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin: 5px;
+}
+
 /***** Forms and button styling *****/
 .btn{
     margin: 10px;
