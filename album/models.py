@@ -96,7 +96,7 @@ class PhotoComment(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name="comments"
+        related_name="commenter"
     )
     comment = models.CharField(max_length=250)
     created_on = models.DateTimeField(auto_now_add=True)

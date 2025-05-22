@@ -19,13 +19,12 @@ def album_list(request):
     photo_counts = []
 
     # Get up two three photos for each album, and total number of photos
-    for a in albums:
-        fkey = a.pk
-        photoquery = Photo.objects.filter(album=fkey)
-        photo_counts.append(photoquery.count())
+    for album in albums:
+        queryset = album.photos.all()
+        photo_counts.append(queryset.count())
         preview_photos = []
-        for i in range(photoquery.count()):
-            preview_photos.append(photoquery[i])
+        for i in range(queryset.count()):
+            preview_photos.append(queryset[i])
             if i == 2:
                 break
 
@@ -53,12 +52,11 @@ def album_view(request, album_id):
     queryset = Album.objects.filter(status=Album.Status.PUBLISHED)
     album = get_object_or_404(queryset, pk=album_id)
 
-    photos = Photo.objects.filter(album=album_id)
+    photos = album.photos.all()
     comment_count = []
     for photo in photos:
-        fkey = photo.pk
-        queryset = PhotoComment.objects.filter(photo=fkey, approved=True)
-        comment_count.append(queryset.count())
+        comment_count.append(photo.comments.filter(approved=True).count())
+
     photo_count = photos.count()
 
     photo_pack = zip(photos, comment_count)
