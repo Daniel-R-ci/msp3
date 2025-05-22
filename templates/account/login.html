@@ -1,0 +1,46 @@
+<!-- Form and functionality reused from 
+ Code Institute I think therefore I blog
+ walkthrough project -->
+
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+
+{% block title-tag %}
+ShutterClickers: Log in
+{% endblock title-tag %}
+
+{% block main-tag %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col12 text-center">
+            <h1>Login</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-4 lg-3 col-xl-3">
+            <p>Do you not already have a user account?</p>
+            <p>Please then <a href="{{ signup_url }}">create one here</a> first.
+            </p>
+        </div>
+        <div class="col-12 col-md-4 lg-3 col-xl-3">
+            <form class="login" method="POST" action="{% url 'account_login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button class="btn btn-light" type="submit">{% trans "Sign In" %}</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+{% endblock main-tag %}
