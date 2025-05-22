@@ -27,12 +27,13 @@ Photo by
                 {% endif %}
             </p>
             {% else %}
-            Photograph by
-            {% if photo.album.user.first_name != "" %}
-            {{photo.album.user.first_name}} {{photo.album.user.last_name}}
-            {% else %}
-            {{photo.album.user}}
-            {% endif %}
+            <h1>Photograph by
+                {% if photo.album.user.first_name != "" %}
+                {{photo.album.user.first_name}} {{photo.album.user.last_name}}
+                {% else %}
+                {{photo.album.user}}
+                {% endif %}
+            </h1>
             {% endif %}
         </div>
     </div>
@@ -45,7 +46,9 @@ Photo by
     {% endif %}
     <div class="row">
         <div class="col-12 text-center">
-            <img src="{{photo.image.url}}" class="photo" alt="A photograph">
+            <div class="photo-container">
+                <img src="{{photo.image.url}}" class="photo" alt="A photograph">
+            </div>
         </div>
     </div>
     {% if photo.technical != "" %}
@@ -57,7 +60,8 @@ Photo by
     {% endif %}
     <div class="row">
         <div class="col-12 text-center">
-            <a href="/albums/{{photo.album.pk}}" alt="Back to album page" class="btn btn-light">Back to {{photo.album.name}}</a>
+            <a href="/albums/{{photo.album.pk}}" alt="Back to album page" class="btn btn-light">Back to
+                {{photo.album.name}}</a>
         </div>
     </div>
 </div>
