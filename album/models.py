@@ -5,16 +5,9 @@ from cloudinary.models import CloudinaryField
 # Create your models here.
 
 ###########################################
-# ALBUM CLASSES
-# ALL CLASSES RELATING TO ALBUM
+# ALBUM MODELS
+# ALL MODELS RELATING TO ALBUM APP
 ###########################################
-
-
-"""class publishedAlbumsManager(models.Manager):
-    def get_queryset(self):
-        return (
-            super().
-"""
 
 
 class Album(models.Model):
@@ -48,13 +41,10 @@ class Album(models.Model):
     updated_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
+        """
+        Returns album.name by user
+        """
         return f"{self.name} - by {self.user}"
-
-
-###########################################
-# ALBUM PHOTO
-# ALL CLASSES RELATING TO PHOTO
-###########################################
 
 
 class Photo(models.Model):
@@ -81,6 +71,9 @@ class Photo(models.Model):
     image = CloudinaryField('image')
 
     def __str__(self):
+        """
+        Returns image: PK (title) album.name by user
+         """
         if self.title != "":
             msg = (
                 f"image{self.pk}: {self.title} in {self.album.name}"
@@ -89,3 +82,27 @@ class Photo(models.Model):
             return msg
 
         return f"image{self.pk} in {self.album.name} by {self.album.user}"
+
+
+class PhotoComment(models.Model):
+    """
+    PhotoComment, belonging to -photo -
+    """
+    photo_id = models.ForeignKey(
+        Photo,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
+    user_id = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
+    comment = models.CharField(max_length=250)
+    approved = models.BooleanField(default=False)
+
+    def __str__(self):
+        """
+        Return Comment on photo PK by user
+        """
+        return f"Comment on photo{self.photo_id.pk} by {self.user_id}"
