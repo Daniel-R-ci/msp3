@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Album, Photo
+from .models import Album, Photo, PhotoComment
 
 # Register your models here.
 
@@ -15,3 +15,9 @@ class AlbumAdmin(admin.ModelAdmin):
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ['pk', 'album']
     list_filter = ['album']
+
+
+@admin.register(PhotoComment)
+class PhotoCommentAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'photo', 'user', 'approved']
+    ordering = ['approved']

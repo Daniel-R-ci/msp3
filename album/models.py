@@ -88,21 +88,22 @@ class PhotoComment(models.Model):
     """
     PhotoComment, belonging to -photo -
     """
-    photo_id = models.ForeignKey(
+    photo = models.ForeignKey(
         Photo,
         on_delete=models.CASCADE,
         related_name="comments"
     )
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="comments"
     )
     comment = models.CharField(max_length=250)
+    created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
 
     def __str__(self):
         """
         Return Comment on photo PK by user
         """
-        return f"Comment on photo{self.photo_id.pk} by {self.user_id}"
+        return f"Comment on photo {self.photo.pk} by {self.user}"
