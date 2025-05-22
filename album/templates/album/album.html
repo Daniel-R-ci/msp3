@@ -13,13 +13,13 @@
             <h1>{{album.name}}</h1>
         </div>
         <div class="col-12">
-        <p>{{album.description}}</p>    
+            <p>{{album.description}}</p>
         </div>
         <div class="col-12 col-lg-4">
             {% if album.user.first_name != "" %}
-                <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
+            <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
             {% else %}
-                <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
+            <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
             {% endif %}
         </div>
         <div class="col-12 col-lg-4">
@@ -28,18 +28,26 @@
         <div class="col-12 col-lg-4">
             <p>Last updated on {{album.updated_on}}</p>
         </div>
-        <div class="col-12 text-center">
-            {% for photo in photos %}
-            <a href="/albums/photo/{{photo.pk}}">
-                <img src="{{photo.image.url}}" class="album_thumbnail" alt="A photograph">
-            </a>
-            {% endfor %}
-        </div>
-        <div class="col-12 text-center">
-            <a href="/albums/" alt="Button back to album" class="btn btn-light">Back to Albums</a>
+        {% for photo, comment_count in photo_pack %}
+        <div class="col-12 col-sm-6 col-lg-4 col-xxl-3 col-padding text-center">
+            <div class="album-thumbnail-styling">
+            <a href="/albums/photo/{{photo.pk}}" class="comment-counter">
+                <img src="{{photo.image.url}}" class="album-photo-thumbnail" alt="A photograph">
 
+                {% if comment_count > 0 %}
+                <br><i class="fa-solid fa-comments"></i> {{comment_count}}
+                {% endif %}
+            </a>
+            </div>
         </div>
+        {% endfor %}
     </div>
+
+    <div class="col-12 text-center">
+        <a href="/albums/" alt="Button back to album" class="btn btn-light">Back to Albums</a>
+
+    </div>
+</div>
 </div>
 
 {% endblock main-tag %}

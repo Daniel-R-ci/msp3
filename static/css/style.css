@@ -20,11 +20,11 @@ body {
     color: var(--font-color);
 }
 
-main{
+main {
     padding: 0px;
 }
 
-footer{
+footer {
     padding-top: 2px;
     text-align: center;
 }
@@ -35,26 +35,27 @@ h3 {
     color: var(--headline-color);
     font-family: var(--headline-font)
 }
- /*h1{
+
+/*h1{
     font-size: large;
  }*/
 
- h2{
+h2 {
     font-size: large;
- }
+}
 
- a{
+a {
     color: var(--url-color);
     text-decoration: none;
- }
- 
- /***** Grid styling *****/
+}
 
- .col-padding{
-    padding-bottom: 15px;
- }
+/***** Grid styling *****/
 
- /***** Navbar styling *****/
+.col-padding {
+    padding: 15px;
+}
+
+/***** Navbar styling *****/
 
 #navbar {
     padding: 0px;
@@ -91,75 +92,132 @@ h3 {
 
 /***** Hero section *****/
 #hero {
-  height: 300px;
-  width: 100%;
-  /*background-color: lightgreen;*/
-  background: url("../images/hero.jpg") no-repeat center center/cover;
-  position: relative;
+    height: 300px;
+    width: 100%;
+    /*background-color: lightgreen;*/
+    background: url("../images/hero.jpg") no-repeat center center/cover;
+    position: relative;
 }
 
 /***** Albums (albums.html) styling *****/
-.preview_thumbnail
-{
+.preview_thumbnail {
     width: 100px;
     height: 100px;
     object-fit: cover;
     margin: 5px;
 }
 
-.album-link{
+.album-link {
     text-decoration: none;
 }
+
 .album-link p {
     color: var(--font-color)
 }
 
 /***** Album (album.html) styling *****/
-.album_thumbnail{
-    width: 250px;
-    height: 250px;
+
+.album-photo-thumbnail {
+    width: 275px;
+    height: 275px;
+    border-radius: 5%;
     object-fit: scale-down;
-    margin: 5px;
+}
+
+.album-thumbnail-styling{
+    width: 100%;
+    height: 100%;
+    padding: 3px;
+    background-color: #333333;
+    border: 2px solid darkgray;
+    border-radius: 10%;
+}
+.comment-counter{
+    color: var(--font-color)
 }
 
 /***** Photo (photo.html styling *****/
-.photo{
+.photo {
     max-width: 90%;
     object-fit: contain;
 }
 
+
 /***** Forms and button styling *****/
-.btn{
+.btn {
     margin: 10px;
 }
 
 #cover-text {
-  font-size: 130%;
-  position: absolute;
-  width: 80%;
-  min-height: 200px;
-  bottom: 30px;
-  padding-top: 40px;
-  padding-left: 10px;
+    font-size: 130%;
+    position: absolute;
+    width: 80%;
+    min-height: 200px;
+    bottom: 30px;
+    padding-top: 40px;
+    padding-left: 10px;
 }
 
 /***** TEST CSS *****/
 /***** FOR DEVELOPMENT PURPOSES ONLY *****/
 /***** MUST BE REMOVED BEFORE PROJECT SUBMISSION *****/
 
-.test-border{
+.test-border {
     border: 1px dashed lightgrey;
 }
 
 /***** Media querys *****/
 
+@media(min-width: 400px) {
+    .album-photo-thumbnail {
+        width: 375px;
+        height: 375px;
+    }
+}
 
-@media (min-width: 992px) {
+@media(min-width: 576px) {
+    .album-photo-thumbnail {
+        width: 275px;
+        height: 275px;
+    }
+}
 
-    .album_thumbnail{
-        width: 450px;
-        height: 450px;
-        object-fit: scale-down;
-        margin: 5px;
-    }  
+@media(min-width: 768px) {
+
+    .album-photo-thumbnail {
+        width: 360x;
+        height: 360px;
+    }
+}
+
+@media(min-width: 992px) {
+
+    .album-photo-thumbnail {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media(min-width: 1200px) {
+
+    .album-photo-thumbnail {
+        width: 375px;
+        height: 375px;
+    }
+}
+
+@media(min-width: 1400px) {
+
+    .album-photo-thumbnail {
+        width: 325px;
+        height: 325px;
+    }
+}
+
+@media(min-width: 1600px) {
+
+    .album-photo-thumbnail {
+        width: 380px;
+        height: 380px;
+    }
 }
