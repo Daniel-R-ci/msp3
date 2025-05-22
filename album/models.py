@@ -106,4 +106,4 @@ class PhotoComment(models.Model):
         """
         Return Comment on photo PK by user
         """
-        return f"Comment on photo {self.photo.pk} by {self.user}"
+        return f"Comment on photo {self.photopk} by {self.user}"

@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Album, Photo
+from .models import Album, Photo, PhotoComment
 
 # Create your views here.
 
@@ -54,14 +54,21 @@ def album_view(request, album_id):
     album = get_object_or_404(queryset, pk=album_id)
 
     photos = Photo.objects.filter(album=album_id)
+    comment_count = []
+    for photo in photos:
+        fkey = photo.pk
+        queryset = PhotoComment.objects.filter(photo=fkey, approved=True)
+        comment_count.append(queryset.count())
     photo_count = photos.count()
+
+    photo_pack = zip(photos, comment_count)
 
     return render(
         request,
         "album/album.html",
         {
             "album": album,
-            "photos": photos,
+            "photo_pack": photo_pack,
             "photo_count": photo_count
          }
     )
