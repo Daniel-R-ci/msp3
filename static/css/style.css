@@ -100,18 +100,29 @@ a {
 }
 
 /***** Albums (albums.html) styling *****/
-.preview_thumbnail {
+
+.albums-thumbnail-styling{
+    display: inline-block;
+    width: 110px;
+    height: 110px;
+    padding: 5px;
+    margin: 2px;
+    background-color: #333333;
+    border: 1px solid darkgray;
+    border-radius: 10%;
+}
+
+.albums-preview-thumbnail {
     width: 100px;
     height: 100px;
     object-fit: cover;
-    margin: 5px;
 }
 
-.album-link {
+.albums-link {
     text-decoration: none;
 }
 
-.album-link p {
+.albums-link p {
     color: var(--font-color)
 }
 

@@ -12,14 +12,17 @@
     <div class="row">
         {% for album, photos, photo_counts in albums_preview %}
         <div class="col-12 col-md-6 col-xl-4">
-            <a href="/albums/{{album.pk}}" class=" album-link">
+            <a href="/albums/{{album.pk}}" class=" albums-link">
                 <h2>{{album}}</h2>
                 <p>{{album.description}}</p>
                 <p>Photos in album: {{photo_counts}}</p>
-                {% for photo in photos %}
-                <img src="{{photo.image.url}}" class="preview_thumbnail" alt="A photograph">
-                {% endfor %}
-
+                <div>
+                    {% for photo in photos %}
+                    <div class="albums-thumbnail-styling">
+                        <img src="{{photo.image.url}}" class="albums-preview-thumbnail" alt="A photograph">
+                    </div>
+                    {% endfor %}
+                </div>
             </a>
         </div>
         {%endfor%}
