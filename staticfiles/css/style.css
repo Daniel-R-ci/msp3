@@ -9,6 +9,7 @@
     --background-color: #000000;
     --headline-color: #ECE2D0;
     --font-color: #f6f0ed;
+    --url-color: #fe5d26;
 }
 
 /***** html tags *****/
@@ -40,6 +41,11 @@ h3 {
 
  h2{
     font-size: large;
+ }
+
+ a{
+    color: var(--url-color);
+    text-decoration: none;
  }
  
  /***** Grid styling *****/
