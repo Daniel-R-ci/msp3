@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!-- Block for page title tag, including default title -->
+    <!-- Block for page title tag, including default title -->
     <title>
         {% block title-tag %}
         ShutterClickers Photo Club
@@ -36,7 +36,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav text-end">
                         <li class="nav-item">
-                            <a class="nav-link"" href="/">Home</a>
+                            <a class="nav-link"" href=" /">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/albums/">Albums</a>
@@ -48,16 +48,16 @@
                             <a class="nav-link" href="#">About</a>
                         </li>
                         {% if user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
-                            </li>
-                        {% else %}                  
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'account_signup' %}">Sign up</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'account_login' %}">Login</a>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_signup' %}">Sign up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_login' %}">Login</a>
+                        </li>
                         {% endif %}
                     </ul>
                 </div>
@@ -67,7 +67,28 @@
     <section id="hero">
         <div id="cover-text">
             <h1>ShutterClickers<br>Photo Club</h1>
-            
+
+        </div>
+    </section>
+    <section id="login_status">
+        {% if user.is_authenticated %}
+        <p>You are logged in as {{ user.username }}</p>
+        {% else %}
+        <p>You are not logged in</p>
+        {% endif %}
+    </section>
+    <section id="messages">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
+                        {{ message | safe }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </section>
     <main>
@@ -128,6 +149,8 @@
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
 
+    {% block extras %}
+    {% endblock extras %}
 </body>
 
 </html>
