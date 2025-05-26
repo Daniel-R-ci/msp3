@@ -165,6 +165,27 @@ a {
     object-fit: scale-down;
 }
 
+.faded{
+    color: darkgrey;
+}
+
+.awaiting_approval{
+    color: red;
+}
+
+table{
+    width: 100%;
+}
+
+tr{
+    border-bottom: 1px dashed lightgrey;
+}
+
+td{
+    vertical-align: top;
+    padding: 10px;
+}
+
 
 /***** Forms and button styling *****/
 .btn {

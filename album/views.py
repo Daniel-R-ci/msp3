@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Album, Photo, PhotoComment
+from .forms import CommentForm
 
 # Create your views here.
 
@@ -76,9 +77,30 @@ def photo_view(request, photo_id):
 
     queryset = Photo.objects.all()
     photo = get_object_or_404(queryset, pk=photo_id)
+    photocomments = photo.comments.all().order_by("-created_on")
+    photocomments_count = photo.comments.filter(approved=True).count()
+    
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.photo = photo
+            comment.save()
+
+        # Set Approved to True if posting user is member
+    """
+        if request.user.groups.filter(name='Members').exists():
+            comment = PhotoComment.objects.all().filter(user=request.user).order_by("-created_on").first()
+    """
+    comment_form = CommentForm()
 
     return render(
         request,
         "album/photo.html",
-        {"photo": photo}
+        {"photo": photo,
+         "photocomments": photocomments,
+         "photocomments_count": photocomments_count,
+         "comment_form": comment_form
+         }
     )

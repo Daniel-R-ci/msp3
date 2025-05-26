@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title-tag %}
 
@@ -58,6 +59,67 @@ Photo by
         </div>
     </div>
     {% endif %}
+
+    <div class="row">
+        <div class="col-12">
+            {% if photocomments_count == 0 and not user.is_authenticated %}
+            <p>There are no comments to view. Log in and be the first to comment on this photograph. </p>
+            {% elif photocomments_count == 0 and user.is_authenticated %}
+            <p> There are no comments to view. You can be the first to provide feedback on this photograph</p>
+            {% else %}
+            <p>There are {{photocomments_count}} comments to view for this photo.</p>
+            {% endif %}
+            <table>
+                {% if user.is_authenticated %}
+                <tr class="test-border">
+                    <td class="test-border">
+                        <p>Leave a new comment</p>
+                        <p>Posting as: {{ user.username }}</p>
+                    </td>
+                    <td class="test-border">
+                        <form id="commentForm" method="post" style="margin-top: 1.3em;">
+                            {{ comment_form | crispy }}
+                            {% csrf_token %}
+                            <button id="submitButton" type="submit" class="btn btn-light btn-sm">Submit</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endif %}
+
+                {% for comment in photocomments %}
+
+                {% if not comment.approved and comment.user == user %}
+                <tr class="faded">
+                    <td>
+                        {{ comment.user }}
+                        <span>
+                            {{ comment.created_on }}
+                        </span> wrote:
+                    </td>
+                    <td>
+                        {{comment.comment}}
+                        <p class="awaiting_approval">This comment is awaiting approval</p>
+                    </td>
+                </tr>
+                {% elif comment.approved %}
+                <tr>
+                    <td>
+                        {{ comment.user }}
+                        <span>
+                            {{ comment.created_on }}
+                        </span> wrote:
+                    </td>
+                    <td>
+                        {{comment.comment}}
+                    </td>
+                </tr>
+                {% endif %}
+
+                <!-- Our for loop ends here -->
+                {% endfor %}
+            </table>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12 text-center">
             <a href="/albums/{{photo.album.pk}}" alt="Back to album page" class="btn btn-light">Back to

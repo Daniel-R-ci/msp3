@@ -86,7 +86,7 @@ class Photo(models.Model):
 
 class PhotoComment(models.Model):
     """
-    PhotoComment, belonging to -photo -
+    PhotoComment, belonging to -photo-, written by -user-
     """
     photo = models.ForeignKey(
         Photo,
@@ -106,4 +106,4 @@ class PhotoComment(models.Model):
         """
         Return Comment on photo PK by user
         """
-        return f"Comment on photo {self.photopk} by {self.user}"
+        return f"Comment on photo {self.photo.pk} by {self.user}"

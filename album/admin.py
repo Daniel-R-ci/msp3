@@ -19,5 +19,5 @@ class PhotoAdmin(admin.ModelAdmin):
 
 @admin.register(PhotoComment)
 class PhotoCommentAdmin(admin.ModelAdmin):
-    list_display = ['pk', 'photo', 'user', 'approved']
+    list_display = ['comment', 'approved']
     ordering = ['approved']
