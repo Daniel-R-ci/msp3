@@ -143,7 +143,7 @@ def photocomment_edit(request, photo_id, comment_id):
 
         queryset = Photo.objects.all()
         photo = get_object_or_404(queryset, pk=photo_id)
-        
+
         # Raise 404 if album status has been set to DRAFT
         if photo.album.status == Album.Status.DRAFT:
             raise Http404
