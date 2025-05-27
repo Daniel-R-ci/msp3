@@ -5,7 +5,7 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 
 from .models import Album, Photo, PhotoComment
-from .forms import CommentForm
+from .forms import CreateAlbumForm, CommentForm
 
 
 # Create your views here.
@@ -20,9 +20,20 @@ def check_if_member(user):
 
 def album_list(request):
     """
-    Retrieves album_preview (zip) to use in album/index.html
-    Returns { album_preview (zip) }
+    Retrieves a list of albums and other items needed for Albums.html
     """
+
+    # Check for posting of new comment
+    if request.method == "POST":
+        create_album_form = CreateAlbumForm(data=request.POST)
+        if create_album_form.is_valid():
+            album = create_album_form.save(commit=False)
+            album.user = request.user
+            album.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Album created. You need to change the status to Publish to make it visible for all visitors.' # noqa
+            )
 
     # Get all published albums
     albums = Album.objects.filter(status=Album.Status.PUBLISHED)
@@ -46,12 +57,26 @@ def album_list(request):
     # https://stackoverflow.com/questions/67961063/django-template-using-forloop-counter-as-an-index-to-a-list
     albums_preview = zip(albums, photos, photo_counts)
 
+    # Get the users own albums, and a boolean to tell template if ablums exist
+    own_albums = []
+    has_albums = False
+    if check_if_member(request.user):
+        own_albums = Album.objects.filter(user=request.user)
+        if own_albums.count() > 0:
+            has_albums = True
+
+    # Reset the create album form
+    create_album_form = CreateAlbumForm()
+
     return render(
         request,
         "album/albums.html",
         {
             "albums_preview": albums_preview,
-            "user_is_member": check_if_member(request.user)
+            "user_is_member": check_if_member(request.user),
+            "create_album_form": create_album_form,
+            "own_albums": own_albums,
+            "has_albums": has_albums
         }
     )
 
@@ -59,12 +84,22 @@ def album_list(request):
 def album_view(request, album_id):
     """
     Retrieves Album that matched album_id
-    Returns {album | photo_count | photo_pack}
+    and other items needed for album.html
     """
 
     # Get the requested album and associated photos
-    queryset = Album.objects.filter(status=Album.Status.PUBLISHED)
-    album = get_object_or_404(queryset, pk=album_id)
+    try:
+        album = Album.objects.get(pk=album_id)
+    except Exception:
+        raise Http404
+    
+    print(request.user)
+    print(album.status)
+
+    # Raise Http404 for albums with status DRAFT is not users own
+    if request.user != album.user and album.status == Album.Status.DRAFT:
+        raise Http404
+
     photos = album.photos.all()
     photo_count = photos.count()
 

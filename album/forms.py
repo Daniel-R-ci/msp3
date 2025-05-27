@@ -1,8 +1,18 @@
 from django import forms
-from .models import PhotoComment
+from .models import Album, PhotoComment
+
+
+class CreateAlbumForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = (
+            'name',
+            'description',
+        )
 
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = PhotoComment
         fields = ('comment',)
+

@@ -55,3 +55,7 @@
 
 
 {% endblock main-tag %}
+
+{% if user_is_member %}
+<script src="{% static 'js/album.js' %}"></script>
+{% endif %}

@@ -1,8 +1,35 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block member-menu %}
-<p>You are a member</p>
+<button id="showFormButton" class="btn btn-light btn-sm">Create a new album</button>
+{% if has_albums %}
+<button id="showOwnAlbumsButton" class="btn btn-light btn-sm">View your albums</button>
+<div class="container-fluid" id="ownAlbumsContainer">
+    <div class="row">
+        {% for album in own_albums %}
+        <div class="col-12 col-sm-6 col md-3 col-lg-2 test-border">
+            <a href="/albums/{{album.pk}}">{{album.name}}</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endif %}
+<div id="createAlbumContainer" class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+            <p>Create a new album with a name and an optional description</p>
+            <form id="createAlbumForm" method="post" style="margin-top: 1.3em;">
+                {{ create_album_form | crispy }}
+                {% csrf_token %}
+                <button id="cancelCreateButton" class="btn btn-light btn-sm">Cancel</button>
+                <button id="submitButton" type="submit" class="btn btn-light btn-sm">Create your new album</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock member-menu %}
 
 {% block main-tag %}
@@ -37,3 +64,11 @@
 
 
 {% endblock main-tag %}
+
+{% block extras %}
+
+{% if user_is_member %}
+<script src="{% static 'js/albums.js' %}"></script>
+{% endif %}
+
+{% endblock extras %}
