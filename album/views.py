@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.contrib import messages
+
 from django.http import Http404
 from django.http import HttpResponseRedirect
 
@@ -8,6 +9,13 @@ from .forms import CommentForm
 
 
 # Create your views here.
+
+def check_if_member(user):
+    """
+    Returns true if logged in member is member of ShutterClickers
+    """
+    # Code for checking membership in groups found at Stackoverflow.com
+    return user.groups.filter(name='Members').exists()
 
 
 def album_list(request):
@@ -42,7 +50,8 @@ def album_list(request):
         request,
         "album/albums.html",
         {
-            "albums_preview": albums_preview
+            "albums_preview": albums_preview,
+            "user_is_member": check_if_member(request.user)
         }
     )
 
@@ -73,8 +82,8 @@ def album_view(request, album_id):
         {
             "album": album,
             "photo_count": photo_count,
-            "photo_pack": photo_pack
-
+            "photo_pack": photo_pack,
+            "user_is_member": check_if_member(request.user)
          }
     )
 
@@ -130,7 +139,8 @@ def photo_view(request, photo_id):
         {"photo": photo,
          "photocomments": photocomments,
          "photocomments_count": photocomments_count,
-         "comment_form": comment_form
+         "comment_form": comment_form,
+         "user_is_member": check_if_member(request.user)
          }
     )
 

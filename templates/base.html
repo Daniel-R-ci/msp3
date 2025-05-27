@@ -69,6 +69,10 @@
         <div id="login_status">
             {% if user.is_authenticated %}
             <p>You are logged in as {{ user.username }}</p>
+                {% if user_is_member %}
+                    {% block member-menu %}
+                    {% endblock member-menu %}
+                {% endif %}
             {% else %}
             <p>You are not logged in</p>
             {% endif %}
