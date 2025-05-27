@@ -1,5 +1,5 @@
-from .models import PhotoComment
 from django import forms
+from .models import PhotoComment
 
 
 class CommentForm(forms.ModelForm):
