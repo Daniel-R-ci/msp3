@@ -11,6 +11,16 @@ class CreateAlbumForm(forms.ModelForm):
         )
 
 
+class EditAlbumForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        fields = (
+            'name',
+            'description',
+            'status',
+        )
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = PhotoComment

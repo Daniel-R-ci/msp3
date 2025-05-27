@@ -5,7 +5,7 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 
 from .models import Album, Photo, PhotoComment
-from .forms import CreateAlbumForm, CommentForm
+from .forms import CreateAlbumForm, EditAlbumForm, CommentForm
 
 
 # Create your views here.
@@ -99,6 +99,12 @@ def album_view(request, album_id):
     # Raise Http404 for albums with status DRAFT is not users own
     if request.user != album.user and album.status == Album.Status.DRAFT:
         raise Http404
+    
+    # For template to know if user is owner of album
+    if request.user == album.user:
+        user_is_owner = True
+    else:
+        user_is_owner = False
 
     photos = album.photos.all()
     photo_count = photos.count()
@@ -111,6 +117,8 @@ def album_view(request, album_id):
     # Zip photos and comment_count
     photo_pack = zip(photos, comment_count)
 
+    edit_album_form = EditAlbumForm()
+
     return render(
         request,
         "album/album.html",
@@ -118,7 +126,9 @@ def album_view(request, album_id):
             "album": album,
             "photo_count": photo_count,
             "photo_pack": photo_pack,
-            "user_is_member": check_if_member(request.user)
+            "user_is_member": check_if_member(request.user),
+            "user_is_owner": user_is_owner,
+            "edit_album_form": edit_album_form
          }
     )
 
@@ -178,6 +188,51 @@ def photo_view(request, photo_id):
          "user_is_member": check_if_member(request.user)
          }
     )
+
+
+def album_edit(request, album_id):
+    """
+    view to edit album
+    """
+
+    if request.method == "POST":
+        queryset = Album.objects.all()
+        album = get_object_or_404(queryset, pk=album_id)
+
+        # Raise Http404 if current user is not album user
+        if album.user != request.user:
+            raise Http404
+        
+        album_form = EditAlbumForm(data=request.POST, instance=album)
+        if album_form.is_valid():
+            album = album_form.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                "Album successfully updated!"
+            )
+
+    return HttpResponseRedirect(reverse('album', args=[album_id]))
+
+
+def album_delete(request, album_id):
+    """
+    view to delete album
+    """
+    queryset = Album.objects.all()
+    album = get_object_or_404(queryset, pk=album_id)
+    
+    if album.user == request.user:
+        album.delete()
+        messages.add_message(
+            request, messages.SUCCESS,
+            'Your album has ben deleted'
+        )
+    else:
+        messages.add_message(
+            request, messages.ERROR,
+            'You can only delete your own albums!'
+        )
+    return HttpResponseRedirect('/albums/')
 
 
 def photocomment_edit(request, photo_id, comment_id):

@@ -1,12 +1,32 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title-tag %}
 {{ album.name}} by {{album.user }}
 {% endblock title-tag %}
 
 {% block member-menu %}
-<p>You are a member</p>
+{% if user_is_owner %}
+<button id="showFormButton" class="btn btn-light btn-sm">Edit this album</button>
+<button id="deleteAlbumButton" class="btn btn-light btn-sm">Delete this album</button>
+<div id="editAlbumContainer" class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+            <p>
+                Update details about your album as neccessary<br>
+                Don't forget to set Status to Published or the album won't be visible to other users
+            </p>
+            <form id="editAlbumForm" action="{{album.pk}}/edit_album/" method="post" style="margin-top: 1.3em;">
+                {{ edit_album_form | crispy }}
+                {% csrf_token %}
+                <button id="cancelEditButton" class="btn btn-light btn-sm">Cancel</button>
+                <button id="submitButton" type="submit" class="btn btn-light btn-sm">Update your album</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock member-menu %}
 
 {% block main-tag %}
@@ -14,10 +34,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col12 text-center">
-            <h1>{{album.name}}</h1>
+            <h1 id="albumName">{{album.name}}</h1>
         </div>
         <div class="col-12">
-            <p>{{album.description}}</p>
+            <p id="albumDescription">{{album.description}}</p>
         </div>
         <div class="col-12 col-lg-4">
             {% if album.user.first_name != "" %}
@@ -53,9 +73,34 @@
     </div>
 </div>
 
+<!-- Delete confirmation modal -->
+<!-- Reused from Code Institute I think therefore I blog walkthrough project -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Delete comment?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your album?
+                This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="deleteConfirm" href="/albums/{{album.pk}}/delete_album/" class="btn
+          btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock main-tag %}
+
+{% block extras %}
 
 {% if user_is_member %}
 <script src="{% static 'js/album.js' %}"></script>
 {% endif %}
+
+{% endblock extras %}
