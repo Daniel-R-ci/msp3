@@ -36,14 +36,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav text-end">
                         <li class="nav-item">
-                            <a class="nav-link"" href=" /">Home</a>
+                            <a class="nav-link" href=" /">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/albums/">Albums</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Events</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/about/">About</a>
                         </li>
@@ -63,34 +59,35 @@
                 </div>
             </div>
         </nav>
-    </header>
-    <section id="hero">
-        <div id="cover-text">
-            <h1>ShutterClickers<br>Photo Club</h1>
 
+        <section id="hero">
+            <div id="cover-text">
+                <h1>ShutterClickers<br>Photo Club</h1>
+
+            </div>
+        </section>
+        <div id="login_status">
+            {% if user.is_authenticated %}
+            <p>You are logged in as {{ user.username }}</p>
+            {% else %}
+            <p>You are not logged in</p>
+            {% endif %}
         </div>
-    </section>
-    <section id="login_status">
-        {% if user.is_authenticated %}
-        <p>You are logged in as {{ user.username }}</p>
-        {% else %}
-        <p>You are not logged in</p>
-        {% endif %}
-    </section>
-    <section id="messages">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-2">
-                    {% for message in messages %}
-                    <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
-                        {{ message | safe }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div id="messages">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        {% for message in messages %}
+                        <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
+                            {{ message | safe }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                 </div>
             </div>
         </div>
-    </section>
+    </header>
     <main>
         {% block main-tag %}
         <!-- Main content block, with default grid system for testing-->
