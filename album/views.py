@@ -5,7 +5,12 @@ from django.http import Http404
 from django.http import HttpResponseRedirect
 
 from .models import Album, Photo, PhotoComment
-from .forms import CreateAlbumForm, EditAlbumForm, CommentForm
+from .forms import (
+    CreateAlbumForm,
+    EditAlbumForm,
+    AddPhotoForm,
+    CommentForm
+)
 
 
 # Create your views here.
@@ -23,7 +28,7 @@ def album_list(request):
     Retrieves a list of albums and other items needed for Albums.html
     """
 
-    # Check for posting of new comment
+    # Check for posting of new album
     if request.method == "POST":
         create_album_form = CreateAlbumForm(data=request.POST)
         if create_album_form.is_valid():
@@ -93,9 +98,6 @@ def album_view(request, album_id):
     except Exception:
         raise Http404
 
-    print(request.user)
-    print(album.status)
-
     # Raise Http404 for albums with status DRAFT is not users own
     if request.user != album.user and album.status == Album.Status.DRAFT:
         raise Http404
@@ -118,6 +120,7 @@ def album_view(request, album_id):
     photo_pack = zip(photos, comment_count)
 
     edit_album_form = EditAlbumForm()
+    add_photo_form = AddPhotoForm()
 
     return render(
         request,
@@ -128,7 +131,8 @@ def album_view(request, album_id):
             "photo_pack": photo_pack,
             "user_is_member": check_if_member(request.user),
             "user_is_owner": user_is_owner,
-            "edit_album_form": edit_album_form
+            "edit_album_form": edit_album_form,
+            "add_photo_form": add_photo_form
          }
     )
 
@@ -233,6 +237,35 @@ def album_delete(request, album_id):
             'You can only delete your own albums!'
         )
     return HttpResponseRedirect('/albums/')
+
+
+def photo_add(request, album_id):
+
+    # Raises Http404 if current user is not album user
+    queryset = Album.objects.filter(user=request.user)
+    album = get_object_or_404(queryset, pk=album_id)
+
+    if request.method == "POST":
+        add_photo_form = AddPhotoForm(request.POST, request.FILES)
+        if add_photo_form.is_valid():
+            photo = add_photo_form.save(commit=False)
+            photo.album = album
+            photo.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Your photo has been uploaded!'
+            )
+        else:
+            print(add_photo_form.fields)
+            messages.add_message(
+                request, messages.ERROR,
+                'Form was not valid!')
+    else:
+        messages.add_message(
+            request, messages.ERROR,
+            'Method was not post!')
+ 
+    return HttpResponseRedirect(reverse('album', args=[album_id]))
 
 
 def photocomment_edit(request, photo_id, comment_id):

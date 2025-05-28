@@ -4,25 +4,39 @@ $(document).ready(function(){
     // Get the delete modal
     const deleteModal = new bootstrap.Modal(document.getElementById("deleteModal"));
 
-    // Hide edit form
+    // Hide forms form
+    $("#addPhotoContainer").hide();
     $("#editAlbumContainer").hide();
-
-    // Create event handler to show form
-    $("#showFormButton").click(function(){
-        $("#editAlbumContainer").show(); 
-        $("#showFormButton").hide();
-        $("#deleteAlbumButton").hide();
+ 
+    // Create event handler to show add photo form
+    $("#showAddPhotoButton").click(function(){
+        $("#addPhotoContainer").show(); 
+        $("#memberButtons").hide();
         albumName = document.getElementById("albumName").innerHTML
         albumDescription = document.getElementById("albumDescription").innerHTML
         $("#id_name").val(albumName);
         $("#id_description").val(albumDescription);
     })
 
-    // Create event handler for Cancel button
-    $("#cancelEditButton").click(function(event){
-        $("showFormButton").show();
-        $("deleteAlbumButton").show();
-        event.preventDefault();
+    // Create event handler to show edit album form
+    $("#showEditButton").click(function(){
+        $("#editAlbumContainer").show(); 
+        $("#membberButtons").hide();
+        albumName = document.getElementById("albumName").innerHTML
+        albumDescription = document.getElementById("albumDescription").innerHTML
+        $("#id_name").val(albumName);
+        $("#id_description").val(albumDescription);
+    })
+
+ // Create event handler for Cancel button for add photo
+    $("#cancelAddPhotoButton").click(function(event){
+        $("#memberButtons").show();
+        $("#addPhotoContainer").hide();
+    })
+
+    // Create event handler for Cancel button for edit form
+    $("#cancelEditAlbumButton").click(function(event){
+        $("#memberButtons").show();
         $("#editAlbumContainer").hide();
     })
 

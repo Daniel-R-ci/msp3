@@ -8,8 +8,27 @@
 
 {% block member-menu %}
 {% if user_is_owner %}
-<button id="showFormButton" class="btn btn-light btn-sm">Edit this album</button>
+<div id="memberButtons">
+<button id="showAddPhotoButton" class="btn btn-light btn-sm">Add a photo</button>
+<button id="showEditButton" class="btn btn-light btn-sm">Edit this album</button>
 <button id="deleteAlbumButton" class="btn btn-light btn-sm">Delete this album</button>
+</div>
+<div id="addPhotoContainer" class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+            <p>
+                Enter the details about your new photo.<br>
+                All information are optional.
+            </p>
+            <form id="addPhotoForm" action="{{album.pk}}/add_photo/" method="post" enctype="multipart/form-data" style="margin-top: 1.3em;">
+                {{ add_photo_form | crispy }}
+                {% csrf_token %}
+                <button id="cancelAddPhotoButton" type="button" class="btn btn-light btn-sm">Cancel</button>
+                <button id="submitAddPhotoButton" type="submit" class="btn btn-light btn-sm">Add photo</button>
+            </form>
+        </div>
+    </div>
+</div>
 <div id="editAlbumContainer" class="container-fluid">
     <div class="row">
         <div class="col-12 col-md-8 col-lg-6 col-xl-4">
@@ -20,8 +39,8 @@
             <form id="editAlbumForm" action="{{album.pk}}/edit_album/" method="post" style="margin-top: 1.3em;">
                 {{ edit_album_form | crispy }}
                 {% csrf_token %}
-                <button id="cancelEditButton" class="btn btn-light btn-sm">Cancel</button>
-                <button id="submitButton" type="submit" class="btn btn-light btn-sm">Update your album</button>
+                <button id="cancelEditAlbumButton" type="button" class="btn btn-light btn-sm">Cancel</button>
+                <button id="submitCreateAlbumButton" type="submit" class="btn btn-light btn-sm">Update your album</button>
             </form>
         </div>
     </div>

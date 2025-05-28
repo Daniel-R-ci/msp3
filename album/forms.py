@@ -1,5 +1,6 @@
 from django import forms
-from .models import Album, PhotoComment
+from .models import Album, Photo, PhotoComment
+from cloudinary.forms import CloudinaryFileField
 
 
 class CreateAlbumForm(forms.ModelForm):
@@ -18,6 +19,19 @@ class EditAlbumForm(forms.ModelForm):
             'name',
             'description',
             'status',
+        )
+
+
+class AddPhotoForm(forms.ModelForm):
+    image = CloudinaryFileField()
+
+    class Meta:
+        model = Photo
+        fields = (
+            'title',
+            'description',
+            'technical',
+            'image',
         )
 
 
