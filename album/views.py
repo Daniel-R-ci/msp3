@@ -148,7 +148,8 @@ def photo_view(request, photo_id):
     photo = get_object_or_404(queryset, pk=photo_id)
 
     # Raise 404 if album status has been set to DRAFT
-    if photo.album.status == Album.Status.DRAFT:
+    # and current user is not album owner
+    if photo.album.status == Album.Status.DRAFT and photo.album.user != request.user: # noqa
         raise Http404
 
     # Check for posting of new comment
@@ -264,7 +265,31 @@ def photo_add(request, album_id):
         messages.add_message(
             request, messages.ERROR,
             'Method was not post!')
- 
+
+    return HttpResponseRedirect(reverse('album', args=[album_id]))
+
+
+def photo_delete(request, photo_id):
+    """
+    view to delete album
+    """
+    queryset = Photo.objects.all()
+    photo = get_object_or_404(queryset, pk=photo_id)
+
+    album_id = photo.album.pk
+
+    if photo.album.user == request.user:
+        photo.delete()
+        messages.add_message(
+            request, messages.SUCCESS,
+            'Your photo has ben deleted!'
+        )
+    else:
+        messages.add_message(
+            request, messages.ERROR,
+            'You can only delete your own photos!'
+        )
+
     return HttpResponseRedirect(reverse('album', args=[album_id]))
 
 

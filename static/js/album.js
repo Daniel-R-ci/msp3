@@ -12,7 +12,7 @@ $(document).ready(function(){
     $("#showAddPhotoButton").click(function(){
         $("#addPhotoContainer").show(); 
         $("#memberButtons").hide();
-    })
+    });
 
     // Create event handler to show edit album form
     $("#showEditButton").click(function(){
@@ -24,23 +24,23 @@ $(document).ready(function(){
         console.log(albumDescription);
         $("#id_name").val(albumName);
         $("#id_description").val(albumDescription);
-    })
+    });
 
  // Create event handler for Cancel button for add photo
     $("#cancelAddPhotoButton").click(function(event){
         $("#memberButtons").show();
         $("#addPhotoContainer").hide();
-    })
+    });
 
     // Create event handler for Cancel button for edit form
     $("#cancelEditAlbumButton").click(function(event){
         $("#memberButtons").show();
         $("#editAlbumContainer").hide();
-    })
+    });
 
     // Create event handler for delete button
     $("#deleteAlbumButton").click(function(){
         deleteModal.show();
-    })
+    });
 
 })
