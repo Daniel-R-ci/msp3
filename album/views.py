@@ -33,18 +33,6 @@ def album_list(request):
     }
     """
 
-    # Check for posting of new album
-    if request.method == "POST":
-        create_album_form = CreateAlbumForm(data=request.POST)
-        if create_album_form.is_valid():
-            album = create_album_form.save(commit=False)
-            album.user = request.user
-            album.save()
-            messages.add_message(
-                request, messages.SUCCESS,
-                'Album created. You need to change the status to Publish to make it visible for all visitors.' # noqa
-            )
-
     # Get all published albums
     albums = Album.objects.filter(status=Album.Status.PUBLISHED)
 
@@ -216,6 +204,27 @@ def photo_view(request, photo_id):
          "user_is_member": check_if_member(request.user)
          }
     )
+
+
+# Add album
+def album_add(request):
+    """
+    Edit album:
+    Returns to albums
+    """
+
+    # Check for posting of new album
+    if request.method == "POST":
+        create_album_form = CreateAlbumForm(data=request.POST)
+        if create_album_form.is_valid():
+            album = create_album_form.save(commit=False)
+            album.user = request.user
+            album.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Album created. You need to change the status to Publish to make it visible for all visitors.' # noqa
+            )
+    return HttpResponseRedirect('/albums/')
 
 
 # Edit album

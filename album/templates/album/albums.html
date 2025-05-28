@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-12 col-md-8 col-lg-6 col-xl-4">
             <p>Create a new album with a name and an optional description</p>
-            <form id="createAlbumForm" method="post" style="margin-top: 1.3em;">
+            <form id="createAlbumForm" action="add_album/" method="post" style="margin-top: 1.3em;">
                 {{ create_album_form | crispy }}
                 {% csrf_token %}
                 <button id="cancelCreateButton" class="btn btn-light btn-sm">Cancel</button>
