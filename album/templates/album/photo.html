@@ -15,8 +15,26 @@ Photo by
 
 {% block member-menu %}
 <div id="memberButtons">
-<button id="showEditButton" class="btn btn-light btn-sm">Edit this photo</button>
+<button id="showEditButton" class="btn btn-light btn-sm">Edit photo info</button>
 <button id="deletePhotoButton" class="btn btn-light btn-sm">Delete this photo</button>
+</div>
+<div id="editPhotoContainer" class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4">
+            <p>
+                Update details about your photo as neccessary<br>
+                If you wish to replace photo, delete this photo and<br>
+                upload the replacement.
+            </p>
+            <p>All inputs are optional</p>
+            <form id="editAlbumForm" action="{{photo.pk}}/edit_photo/" method="post" style="margin-top: 1.3em;">
+                {{ edit_photo_form | crispy }}
+                {% csrf_token %}
+                <button id="cancelEditPhotoButton" type="button" class="btn btn-light btn-sm">Cancel</button>
+                <button id="submitEditPhotomButton" type="submit" class="btn btn-light btn-sm">Update your photo</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock member-menu %}
 

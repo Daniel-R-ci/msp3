@@ -35,6 +35,16 @@ class AddPhotoForm(forms.ModelForm):
         )
 
 
+class EditPhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = (
+            'title',
+            'description',
+            'technical',
+        )
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = PhotoComment

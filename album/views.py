@@ -9,6 +9,7 @@ from .forms import (
     CreateAlbumForm,
     EditAlbumForm,
     AddPhotoForm,
+    EditPhotoForm,
     CommentForm
 )
 
@@ -178,6 +179,7 @@ def photo_view(request, photo_id):
 
     # Set a new instance of CommentForm
     comment_form = CommentForm()
+    edit_photo_form = EditPhotoForm()
 
     # Read all photocomments and calculate number of approved comments
     photocomments = photo.comments.all().order_by("-created_on")
@@ -190,6 +192,7 @@ def photo_view(request, photo_id):
          "photocomments": photocomments,
          "photocomments_count": photocomments_count,
          "comment_form": comment_form,
+         "edit_photo_form": edit_photo_form,
          "user_is_member": check_if_member(request.user)
          }
     )
@@ -269,6 +272,36 @@ def photo_add(request, album_id):
     return HttpResponseRedirect(reverse('album', args=[album_id]))
 
 
+def photo_edit(request, photo_id):
+    """
+    view to edit photo
+    """
+
+    if request.method == "POST":
+        queryset = Photo.objects.all()
+        photo = get_object_or_404(queryset, pk=photo_id)
+
+        # Raise Http404 if current user is not album user
+        if photo.album.user != request.user:
+            raise Http404
+
+        photo_form = EditPhotoForm(data=request.POST, instance=photo)
+
+        if photo_form.is_valid():
+            photo = photo_form.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                "Photo information successfully updated!"
+            )
+        else:
+            messages.add_message(
+                request, messages.ERROR,
+                "Photo information was not updated!"
+            )
+
+    return HttpResponseRedirect(reverse('photo', args=[photo_id]))
+
+
 def photo_delete(request, photo_id):
     """
     view to delete album
@@ -313,8 +346,8 @@ def photocomment_edit(request, photo_id, comment_id):
             comment = comment_form.save(commit=False)
             comment.photo = photo
 
-            # Sets approved to True if user is a member of ShutterClickers
-            # Code for checking membership in groups found at Stackoverflow.com
+        # Sets approved to True if user is a member of ShutterClickers
+        # Code for checking membership in groups found at Stackoverflow.com
         if request.user.groups.filter(name='Members').exists():
             comment.approved = True
             comment.save()
@@ -330,7 +363,7 @@ def photocomment_edit(request, photo_id, comment_id):
                 'Comment edited and awaiting approval'
             )
 
-        return HttpResponseRedirect(reverse('photo', args=[photo_id]))
+    return HttpResponseRedirect(reverse('photo', args=[photo_id]))
 
 
 def photocomment_delete(request, photo_id, comment_id):

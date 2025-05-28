@@ -45,6 +45,21 @@ $(document).ready(function () {
         });
     }
 
+    //Hide edit form
+    $("#editPhotoContainer").hide();
+
+    //Create event handler for edit button
+    $("#showEditButton").click(function(){
+        $("#memberButtons").hide();
+        $("#editPhotoContainer").show();
+    });
+
+    //Create event handler for cancel button
+    $("#cancelEditPhotoButton").click(function (){
+        $("#editPhotoContainer").hide();
+        $("#memberButtons").show();
+    });
+
     // Create event handler for delete button
     $("#deletePhotoButton").click(function(){
         deletePhotoModal.show();
