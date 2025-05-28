@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.contrib import messages
-
 from django.http import Http404
 from django.http import HttpResponseRedirect
 
@@ -129,7 +128,11 @@ def album_view(request, album_id):
     # Zip photos and comment_count
     photo_pack = zip(photos, comment_count)
 
-    edit_album_form = EditAlbumForm()
+    edit_album_form = EditAlbumForm(initial={
+        'name': album.name,
+        'description': album.description,
+        'status': album.status
+    })
     add_photo_form = AddPhotoForm()
 
     return render(
@@ -192,7 +195,11 @@ def photo_view(request, photo_id):
 
     # Set a new instance of CommentForm
     comment_form = CommentForm()
-    edit_photo_form = EditPhotoForm()
+    edit_photo_form = EditPhotoForm(initial={
+        'title': photo.title,
+        'description': photo.description,
+        'technical': photo.technical
+    })
 
     # Read all photocomments and calculate number of approved comments
     photocomments = photo.comments.all().order_by("-created_on")

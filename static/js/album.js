@@ -16,14 +16,8 @@ $(document).ready(function(){
 
     // Create event handler to show edit album form
     $("#showEditButton").click(function(){
+        $("#memberButtons").hide();
         $("#editAlbumContainer").show(); 
-        $("#membberButtons").hide();
-        albumName = document.getElementById("albumName").innerHTML;
-        albumDescription = document.getElementById("albumDescription").innerHTML;
-        console.log(albumName);
-        console.log(albumDescription);
-        $("#id_name").val(albumName);
-        $("#id_description").val(albumDescription);
     });
 
  // Create event handler for Cancel button for add photo
