@@ -19,9 +19,10 @@ $(document).ready(function(){
     })
 
     // Create event handler for Cancel button
-    $("#cancelEditButton").click(function(){
+    $("#cancelEditButton").click(function(event){
         $("showFormButton").show();
         $("deleteAlbumButton").show();
+        event.preventDefault();
         $("#editAlbumContainer").hide();
     })
 

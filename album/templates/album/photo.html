@@ -101,7 +101,9 @@ Photo by
                         </span> wrote:
                     </td>
                     <td>
-                        {{comment.comment}}
+                        <div id="comment{{comment.pk}}">
+                            {{comment.comment}}
+                        </div>
                         <p class="awaiting-approval">This comment is awaiting approval</p>
                         <p>
                             <button class="btn btn-light btn-edit btn-sm" data-comment_id="{{comment.pk}}"
@@ -120,7 +122,7 @@ Photo by
                         </span> wrote:
                     </td>
                     <td>
-                        <div id="comment{{ comment.pk}}">
+                        <div id="comment{{comment.pk}}">
                             {{comment.comment}}
                         </div>
                         {% if user.is_authenticated and comment.user == user %}
