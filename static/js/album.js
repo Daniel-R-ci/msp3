@@ -12,18 +12,16 @@ $(document).ready(function(){
     $("#showAddPhotoButton").click(function(){
         $("#addPhotoContainer").show(); 
         $("#memberButtons").hide();
-        albumName = document.getElementById("albumName").innerHTML
-        albumDescription = document.getElementById("albumDescription").innerHTML
-        $("#id_name").val(albumName);
-        $("#id_description").val(albumDescription);
     })
 
     // Create event handler to show edit album form
     $("#showEditButton").click(function(){
         $("#editAlbumContainer").show(); 
         $("#membberButtons").hide();
-        albumName = document.getElementById("albumName").innerHTML
-        albumDescription = document.getElementById("albumDescription").innerHTML
+        albumName = document.getElementById("albumName").innerHTML;
+        albumDescription = document.getElementById("albumDescription").innerHTML;
+        console.log(albumName);
+        console.log(albumDescription);
         $("#id_name").val(albumName);
         $("#id_description").val(albumDescription);
     })
