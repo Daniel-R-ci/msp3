@@ -14,6 +14,7 @@ class Album(models.Model):
     """
     Album: Contains photo album, belong to -user-
     """
+
     class Status(models.TextChoices):
         """
         Text choices, to show if album is publish or in draft status
@@ -51,6 +52,7 @@ class Photo(models.Model):
     """
     Photo: Photograph belonging in -album-
     """
+
     album = models.ForeignKey(
         Album,
         on_delete=models.CASCADE,
@@ -88,6 +90,7 @@ class PhotoComment(models.Model):
     """
     PhotoComment, belonging to -photo-, written by -user-
     """
+
     photo = models.ForeignKey(
         Photo,
         on_delete=models.CASCADE,

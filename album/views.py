@@ -16,6 +16,7 @@ from .forms import (
 
 # Create your views here.
 
+# Check if user is a member of ShutterClickers
 def check_if_member(user):
     """
     Returns true if logged in member is member of ShutterClickers
@@ -24,9 +25,13 @@ def check_if_member(user):
     return user.groups.filter(name='Members').exists()
 
 
+# Supply view to albums.html
 def album_list(request):
     """
-    Retrieves a list of albums and other items needed for Albums.html
+    Supplies data to albums.html:
+    return {
+    albums_preview, user_is_member, create_album_form, own_albums, has_albums
+    }
     """
 
     # Check for posting of new album
@@ -87,10 +92,14 @@ def album_list(request):
     )
 
 
+# Supply view to album.html
 def album_view(request, album_id):
     """
-    Retrieves Album that matched album_id
-    and other items needed for album.html
+    Supplies data to album.html:
+    return {
+    album, photo_count, photo_pack, user_is_member, user_is_owner,
+    edit_album_form, add_photo_form"
+    }
     """
 
     # Get the requested album and associated photos
@@ -138,10 +147,14 @@ def album_view(request, album_id):
     )
 
 
+# Supplies view to photo.html
 def photo_view(request, photo_id):
     """
-    Get spefic photo and associated comments
-    Return {photo, photocomments, photocomments_count comment_form}
+    Supplies data to photo.html:
+    return{
+    photo, photocomments, photocomments_count, comment_form,
+    edit_photo_form, user_is_member
+    }
     """
 
     # Get the requested photo
@@ -198,9 +211,11 @@ def photo_view(request, photo_id):
     )
 
 
+# Edit album
 def album_edit(request, album_id):
     """
-    view to edit album
+    Edit album:
+    Raises 404 or returns to album
     """
 
     if request.method == "POST":
@@ -222,10 +237,13 @@ def album_edit(request, album_id):
     return HttpResponseRedirect(reverse('album', args=[album_id]))
 
 
+# Delete album
 def album_delete(request, album_id):
     """
-    view to delete album
+    Delete album:
+    Raises 404 or returns to albums
     """
+
     queryset = Album.objects.all()
     album = get_object_or_404(queryset, pk=album_id)
 
@@ -243,7 +261,12 @@ def album_delete(request, album_id):
     return HttpResponseRedirect('/albums/')
 
 
+# Add a photo to album
 def photo_add(request, album_id):
+    """
+    Add photo to album
+    Raises 404 or returns to album
+    """
 
     # Raises Http404 if current user is not album user
     queryset = Album.objects.filter(user=request.user)
@@ -272,9 +295,11 @@ def photo_add(request, album_id):
     return HttpResponseRedirect(reverse('album', args=[album_id]))
 
 
+# Edit information about photo
 def photo_edit(request, photo_id):
     """
-    view to edit photo
+    Edit photo:
+    Raises 404 or returns to photo
     """
 
     if request.method == "POST":
@@ -302,10 +327,12 @@ def photo_edit(request, photo_id):
     return HttpResponseRedirect(reverse('photo', args=[photo_id]))
 
 
+# Delete photo
 def photo_delete(request, photo_id):
+    """ Delete photo:
+    Raises 404 or returns to album
     """
-    view to delete album
-    """
+
     queryset = Photo.objects.all()
     photo = get_object_or_404(queryset, pk=photo_id)
 
@@ -326,10 +353,12 @@ def photo_delete(request, photo_id):
     return HttpResponseRedirect(reverse('album', args=[album_id]))
 
 
+# Edit comment
 def photocomment_edit(request, photo_id, comment_id):
+    """ Edit comment:
+    Raises 404 or returns to photo
     """
-    view to edit comments
-    """
+
     if request.method == "POST":
 
         queryset = Photo.objects.all()
@@ -366,10 +395,13 @@ def photocomment_edit(request, photo_id, comment_id):
     return HttpResponseRedirect(reverse('photo', args=[photo_id]))
 
 
+# Delete comment
 def photocomment_delete(request, photo_id, comment_id):
     """
-    view to delete comment
+    Delete comment:
+    Raises 404 or returns to photo
     """
+
     queryset = Photo.objects.all()
     photo = get_object_or_404(queryset, pk=photo_id)
     # Raise 404 if album status has been set to DRAFT
