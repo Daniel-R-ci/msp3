@@ -6,8 +6,8 @@ urlpatterns = [
     path('<int:album_id>', views.album_view, name='album'),
     path('<int:album_id>/edit_album/', views.album_edit, name="album_edit"),
     path(
-        '<int:album_id>/delete_album/', 
-        views.album_delete, 
+        '<int:album_id>/delete_album/',
+        views.album_delete,
         name="album_delete"
     ),
     path('photo/<int:photo_id>', views.photo_view, name="photo"),

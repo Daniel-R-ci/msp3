@@ -92,14 +92,14 @@ def album_view(request, album_id):
         album = Album.objects.get(pk=album_id)
     except Exception:
         raise Http404
-    
+
     print(request.user)
     print(album.status)
 
     # Raise Http404 for albums with status DRAFT is not users own
     if request.user != album.user and album.status == Album.Status.DRAFT:
         raise Http404
-    
+
     # For template to know if user is owner of album
     if request.user == album.user:
         user_is_owner = True
@@ -202,7 +202,7 @@ def album_edit(request, album_id):
         # Raise Http404 if current user is not album user
         if album.user != request.user:
             raise Http404
-        
+
         album_form = EditAlbumForm(data=request.POST, instance=album)
         if album_form.is_valid():
             album = album_form.save()
@@ -220,7 +220,7 @@ def album_delete(request, album_id):
     """
     queryset = Album.objects.all()
     album = get_object_or_404(queryset, pk=album_id)
-    
+
     if album.user == request.user:
         album.delete()
         messages.add_message(
