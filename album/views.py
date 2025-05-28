@@ -157,30 +157,6 @@ def photo_view(request, photo_id):
     if photo.album.status == Album.Status.DRAFT and photo.album.user != request.user: # noqa
         raise Http404
 
-    # Check for posting of new comment
-    if request.method == "POST":
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.user = request.user
-            comment.photo = photo
-
-        # Sets approved to True if user is a member of ShutterClickers
-        # Code for checking membership in groups found at Stackoverflow.com
-        if request.user.groups.filter(name='Members').exists():
-            comment.approved = True
-            comment.save()
-            messages.add_message(
-                request, messages.SUCCESS,
-                'Comment submitted'
-            )
-        else:
-            comment.save()
-            messages.add_message(
-                request, messages.SUCCESS,
-                'Comment submitted and awaiting approval'
-            )
-
     # Set a new instance of CommentForm
     comment_form = CommentForm()
     edit_photo_form = EditPhotoForm(initial={
@@ -367,6 +343,40 @@ def photo_delete(request, photo_id):
         )
 
     return HttpResponseRedirect(reverse('album', args=[album_id]))
+
+
+# Add comment
+def photocomment_add(request, photo_id):
+
+    # Get the requested photo
+    queryset = Photo.objects.all()
+    photo = get_object_or_404(queryset, pk=photo_id)
+
+    # Check for posting of new comment
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.photo = photo
+
+        # Sets approved to True if user is a member of ShutterClickers
+        # Code for checking membership in groups found at Stackoverflow.com
+        if request.user.groups.filter(name='Members').exists():
+            comment.approved = True
+            comment.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Comment submitted'
+            )
+        else:
+            comment.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Comment submitted and awaiting approval'
+            )
+
+    return HttpResponseRedirect(reverse('photo', args=[photo_id]))
 
 
 # Edit comment

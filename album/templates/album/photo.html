@@ -104,7 +104,7 @@ Photo by
                         <p>Posting as: {{ user.username }}</p>
                     </td>
                     <td>
-                        <form id="commentForm" method="post" style="margin-top: 1.3em;">
+                        <form id="commentForm" action="/albums/photo/{{photo.pk}}/add_comment/" method="post" style="margin-top: 1.3em;">
                             {{ comment_form | crispy }}
                             {% csrf_token %}
                             <button id="submitButton" type="submit" class="btn btn-light btn-sm">Submit</button>

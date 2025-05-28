@@ -11,6 +11,7 @@ urlpatterns = [
     path('photo/<int:photo_id>', views.photo_view, name="photo"),
     path('photo/<int:photo_id>/edit_photo/', views.photo_edit, name="photo_edit"), # noqa
     path('photo/<int:photo_id>/delete_photo/', views.photo_delete, name="photo_delete"), # noqa
+    path('photo/<int:photo_id>/add_comment/', views.photocomment_add, name="photocomment_add"), # noqa
     path('photo/<int:photo_id>/edit_comment/<int:comment_id>',views.photocomment_edit, name="photocomment_edit"), # noqa
     path('photo/<int:photo_id>/delete_comment/<int:comment_id>', views.photocomment_delete, name="photocomment_delete") # noqa
 ]
