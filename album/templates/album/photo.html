@@ -14,6 +14,7 @@ Photo by
 {% endblock title-tag %}
 
 {% block member-menu %}
+{% if user_is_owner %}
 <div id="memberButtons">
 <button id="showEditButton" class="btn btn-light btn-sm">Edit photo info</button>
 <button id="deletePhotoButton" class="btn btn-light btn-sm">Delete this photo</button>
@@ -36,6 +37,7 @@ Photo by
         </div>
     </div>
 </div>
+{% endif %}
 {% endblock member-menu %}
 
 {% block main-tag %}
