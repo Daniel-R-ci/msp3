@@ -62,7 +62,7 @@
             {% if album.user.first_name != "" %}
             <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
             {% else %}
-            <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
+            <p>Photographs taken by {{album.user}}</p>
             {% endif %}
         </div>
         <div class="col-12 col-lg-4">
