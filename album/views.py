@@ -144,7 +144,7 @@ def photo_view(request, photo_id):
     Supplies data to photo.html:
     return{
     photo, photocomments, photocomments_count, comment_form,
-    edit_photo_form, user_is_member
+    edit_photo_form, user_is_member, user_is_owner
     }
     """
 
@@ -169,6 +169,11 @@ def photo_view(request, photo_id):
     photocomments = photo.comments.all().order_by("-created_on")
     photocomments_count = photo.comments.filter(approved=True).count()
 
+    if request.user == photo.album.user:
+        user_is_owner = True
+    else:
+        user_is_owner = False
+
     return render(
         request,
         "album/photo.html",
@@ -177,7 +182,8 @@ def photo_view(request, photo_id):
          "photocomments_count": photocomments_count,
          "comment_form": comment_form,
          "edit_photo_form": edit_photo_form,
-         "user_is_member": check_if_member(request.user)
+         "user_is_member": check_if_member(request.user),
+         "user_is_owner": user_is_owner,
          }
     )
 
