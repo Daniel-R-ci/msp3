@@ -13,6 +13,7 @@ Photo by
 
 {% endblock title-tag %}
 
+<!-- In section for Login status and button for membership functions when needed -->
 {% block member-menu %}
 {% if user_is_owner %}
 <div id="memberButtons">
@@ -43,138 +44,152 @@ Photo by
 
 {% block main-tag %}
 
+<section> <!-- A photo with associated information -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                {% if photo.title != "" %}
+                <h1>{{photo.title}}</h1>
+                <p>Photograph by
+                    {% if photo.album.user.first_name != "" %}
+                    {{photo.album.user.first_name}} {{photo.album.user.last_name}}
+                    {% else %}
+                    {{photo.album.user}}
+                    {% endif %}
+                </p>
+                {% else %}
+                <h1>Photograph by
+                    {% if photo.album.user.first_name != "" %}
+                    {{photo.album.user.first_name}} {{photo.album.user.last_name}}
+                    {% else %}
+                    {{photo.album.user}}
+                    {% endif %}
+                </h1>
+                {% endif %}
+            </div>
+        </div>
+        {% if photo.description != "" %}
+        <div class="row">
+            <div class="col-12 text-center">
+                <p>{{photo.description}}</p>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-12 text-center">
+                <a href="/albums/{{photo.album.pk}}" class="btn btn-light">Back to
+                    {{photo.album.name}}</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="photo-container">
+                    <img src="{{photo.image.url}}" class="photo" alt="A photograph">
+                </div>
+            </div>
+        </div>
+        {% if photo.technical != "" %}
+        <div class="row">
+            <div class="col12 text-center">
+                <p>Technical information: {{photo.technical}}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section> <!-- Comments section -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                {% if photocomments_count == 0 and not user.is_authenticated %}
+                <p>There are no comments to view. Log in and be the first to comment on this photograph. </p>
+                {% elif photocomments_count == 0 and user.is_authenticated %}
+                <p> There are no comments to view. You can be the first to provide feedback on this photograph</p>
+                {% else %}
+                <p>There are {{photocomments_count}} comments to view for this photo.</p>
+                {% endif %}
+            </div>
+
+            {% if user.is_authenticated %}
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-12 col-lg-5 col-xl-4 col-xxl-3">
+                <p>Leave a new comment</p>
+                <p>Posting as: {{ user.username }}</p>
+            </div>
+            <div class="col-12 col-lg-7 col-xl-8 col-xxl-9">
+                <form id="commentForm" action="/albums/photo/{{photo.pk}}/add_comment/" method="post"
+                    style="margin-top: 1.3em;">
+                    {{ comment_form | crispy }}
+                    {% csrf_token %}
+                    <button id="submitButton" type="submit" class="btn btn-light btn-sm">Submit</button>
+                </form>
+            </div>
+            {% endif %}
+
+            {% for comment in photocomments %}
+            <div class="col-12">
+                <hr>
+            </div>
+            {% if not comment.approved and comment.user == user %}
+            <div class="col-12 col-lg-5 col-xl-4 col-xxl-3 faded">
+                <p>
+                    <strong>You</strong> wrote on <em>{{ comment.created_on }}</em>:
+                </p>
+            </div>
+            <div class="col-12 col-lg-7 col-xl-8 col-xxl-9 faded">
+                <div id="comment{{comment.pk}}">
+                    {{comment.comment}}
+                </div>
+                <p class="awaiting-approval">This comment is awaiting approval</p>
+                <p>
+                    <button class="btn btn-light btn-edit btn-sm" data-comment_id="{{comment.pk}}"
+                        data-photo_id="{{photo.pk}}">Edit</button>
+                    <button class="btn btn-light btn-delete btn-sm" data-comment_id="{{comment.pk}}"
+                        data-photo_id="{{photo.pk}}">Delete</button>
+                </p>
+            </div>
+            {% elif comment.approved %}
+            <div class="col-12 col-lg-5 col-xl-4 col-xxl-3">
+                <p>
+                    {% if comment.user == user %}
+                    <strong>You</strong> wrote on <em>{{ comment.created_on }}</em>:
+                    {% else %}
+                    <strong>{{ comment.user }}</strong> wrote on <em>{{ comment.created_on }}</em>:
+                    {% endif %}
+                </p>
+            </div>
+            <div class="col-12 col-lg-7 col-xl-8 col-xxl-9">
+                <div id="comment{{comment.pk}}">
+                    {{comment.comment}}
+                </div>
+                {% if user.is_authenticated and comment.user == user %}
+                <p>
+                    <button class="btn btn-light btn-edit btn-sm" data-comment_id="{{comment.pk}}"
+                        data-photo_id="{{photo.pk}}">Edit</button>
+                    <button class="btn btn-light btn-delete btn-sm" data-comment_id="{{comment.pk}}"
+                        data-photo_id="{{photo.pk}}">Delete</button>
+                </p>
+                {% endif %}
+            </div>
+
+            {% endif %}
+
+            <!-- Our for loop ends here -->
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12 text-center">
-            {% if photo.title != "" %}
-            <h1>{{photo.title}}</h1>
-            <p>Photograph by
-                {% if photo.album.user.first_name != "" %}
-                {{photo.album.user.first_name}} {{photo.album.user.last_name}}
-                {% else %}
-                {{photo.album.user}}
-                {% endif %}
-            </p>
-            {% else %}
-            <h1>Photograph by
-                {% if photo.album.user.first_name != "" %}
-                {{photo.album.user.first_name}} {{photo.album.user.last_name}}
-                {% else %}
-                {{photo.album.user}}
-                {% endif %}
-            </h1>
-            {% endif %}
+            <a href="/albums/{{photo.album.pk}}" class="btn btn-light">Back to
+                {{photo.album.name}}</a>
         </div>
     </div>
-    {% if photo.description != "" %}
-    <div class="row">
-        <div class="col-12 text-center">
-            <p>{{photo.description}}</p>
-        </div>
-    </div>
-    {% endif %}
-    <div class="row">
-        <div class="col-12 text-center">
-            <div class="photo-container">
-                <img src="{{photo.image.url}}" class="photo" alt="A photograph">
-            </div>
-        </div>
-    </div>
-    {% if photo.technical != "" %}
-    <div class="row">
-        <div class="col12 text-center">
-            <p>Technical information: {{photo.technical}}</p>
-        </div>
-    </div>
-    {% endif %}
-
-    <div class="row">
-        <div class="col-12">
-            {% if photocomments_count == 0 and not user.is_authenticated %}
-            <p>There are no comments to view. Log in and be the first to comment on this photograph. </p>
-            {% elif photocomments_count == 0 and user.is_authenticated %}
-            <p> There are no comments to view. You can be the first to provide feedback on this photograph</p>
-            {% else %}
-            <p>There are {{photocomments_count}} comments to view for this photo.</p>
-            {% endif %}
-        </div>
-
-        {% if user.is_authenticated %}
-        <div class="col-12">
-            <hr>
-        </div>
-        <div class="col-12 col-lg-5 col-xl-4 col-xxl-3">
-            <p>Leave a new comment</p>
-            <p>Posting as: {{ user.username }}</p>
-        </div>
-        <div class="col-12 col-lg-7 col-xl-8 col-xxl-9">
-            <form id="commentForm" action="/albums/photo/{{photo.pk}}/add_comment/" method="post"
-                style="margin-top: 1.3em;">
-                {{ comment_form | crispy }}
-                {% csrf_token %}
-                <button id="submitButton" type="submit" class="btn btn-light btn-sm">Submit</button>
-            </form>
-        </div>
-        {% endif %}
-
-        {% for comment in photocomments %}
-        <div class="col-12">
-            <hr>
-        </div>
-        {% if not comment.approved and comment.user == user %}
-        <div class="col-12 col-lg-5 col-xl-4 col-xxl-3 faded">
-            <p>
-                <strong>You</strong> wrote on <em>{{ comment.created_on }}</em>:
-            </p>
-        </div>
-        <div class="col-12 col-lg-7 col-xl-8 col-xxl-9 faded">
-            <div id="comment{{comment.pk}}">
-                {{comment.comment}}
-            </div>
-            <p class="awaiting-approval">This comment is awaiting approval</p>
-            <p>
-                <button class="btn btn-light btn-edit btn-sm" data-comment_id="{{comment.pk}}"
-                    data-photo_id="{{photo.pk}}">Edit</button>
-                <button class="btn btn-light btn-delete btn-sm" data-comment_id="{{comment.pk}}"
-                    data-photo_id="{{photo.pk}}">Delete</button>
-            </p>
-        </div>
-        {% elif comment.approved %}
-        <div class="col-12 col-lg-5 col-xl-4 col-xxl-3">
-            <p>
-                {% if comment.user == user %}
-                <strong>You</strong> wrote on <em>{{ comment.created_on }}</em>:
-                {% else %}
-                <strong>{{ comment.user }}</strong> wrote on <em>{{ comment.created_on }}</em>:
-                {% endif %}
-            </p>
-        </div>
-        <div class="col-12 col-lg-7 col-xl-8 col-xxl-9">
-            <div id="comment{{comment.pk}}">
-                {{comment.comment}}
-            </div>
-            {% if user.is_authenticated and comment.user == user %}
-            <p>
-                <button class="btn btn-light btn-edit btn-sm" data-comment_id="{{comment.pk}}"
-                    data-photo_id="{{photo.pk}}">Edit</button>
-                <button class="btn btn-light btn-delete btn-sm" data-comment_id="{{comment.pk}}"
-                    data-photo_id="{{photo.pk}}">Delete</button>
-            </p>
-            {% endif %}
-        </div>
-
-        {% endif %}
-
-        <!-- Our for loop ends here -->
-        {% endfor %}
-    </div>
-</div>
-<div class="row">
-    <div class="col-12 text-center">
-        <a href="/albums/{{photo.album.pk}}" class="btn btn-light">Back to
-            {{photo.album.name}}</a>
-    </div>
-</div>
 </div>
 
 <!-- Delete confirmation modal -->

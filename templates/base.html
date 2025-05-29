@@ -59,50 +59,54 @@
                 </div>
             </div>
         </nav>
-
-        <section id="hero">
+    </header>
+    <main>
+        <section id="hero"> <!-- Hero image and site name -->
             <div id="cover-text">
                 <h1>ShutterClickers<br>Photo Club</h1>
 
             </div>
         </section>
-        <div class="login-status">
-            {% if user.is_authenticated %}
-            <div class="login-name">
-                <div class="unskew">
-                    You are logged in as {{ user.username }}
+        <section> <!-- Login status and button for membership functions when needed-->
+            <div class="login-status">
+                {% if user.is_authenticated %}
+                <div class="login-name">
+                    <div class="unskew">
+                        You are logged in as {{ user.username }}
+                    </div>
                 </div>
-            </div>
-            {% if user_is_member %}
-            {% block member-menu %}
-            {% endblock member-menu %}
-            {% endif %}
-            {% else %}
-            <div class="login-name">
-                <div class="unskew">
-                    You are not logged in
+                {% if user_is_member %}
+                {% block member-menu %}
+                {% endblock member-menu %}
+                {% endif %}
+                {% else %}
+                <div class="login-name">
+                    <div class="unskew">
+                        You are not logged in
+                    </div>
                 </div>
+                {% endif %}
             </div>
-
-            {% endif %}
-        </div>
-        <div id="messages">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        {% for message in messages %}
-                        <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
-                            {{ message | safe }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </section>
+        <section> <!-- Displaying messages created in DJANGO -->
+            <div id="messages">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            {% for message in messages %}
+                            <div class="alert {{ message.tags }} alert-dismissible fade show" id="msg" role="alert">
+                                {{ message | safe }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
-    <main>
-        <!-- Main content block, with default grid system for testing-->
+        </section>
+
+        <!-- Main content block -->
         {% block main-tag %}
 
         {% endblock main-tag %}

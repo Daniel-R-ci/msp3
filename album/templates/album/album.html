@@ -6,12 +6,13 @@
 {{ album.name}} by {{album.user }}
 {% endblock title-tag %}
 
+<!-- In section for Login status and button for membership functions when needed -->
 {% block member-menu %}
 {% if user_is_owner %}
 <div id="memberButtons">
-<button id="showAddPhotoButton" class="btn btn-light btn-sm">Add a photo</button>
-<button id="showEditButton" class="btn btn-light btn-sm">Edit this album</button>
-<button id="deleteAlbumButton" class="btn btn-light btn-sm">Delete this album</button>
+    <button id="showAddPhotoButton" class="btn btn-light btn-sm">Add a photo</button>
+    <button id="showEditButton" class="btn btn-light btn-sm">Edit this album</button>
+    <button id="deleteAlbumButton" class="btn btn-light btn-sm">Delete this album</button>
 </div>
 <div id="addPhotoContainer" class="container-fluid">
     <div class="row">
@@ -20,7 +21,8 @@
                 Enter the details about your new photo.<br>
                 All information are optional.
             </p>
-            <form id="addPhotoForm" action="{{album.pk}}/add_photo/" method="post" enctype="multipart/form-data" style="margin-top: 1.3em;">
+            <form id="addPhotoForm" action="{{album.pk}}/add_photo/" method="post" enctype="multipart/form-data"
+                style="margin-top: 1.3em;">
                 {{ add_photo_form | crispy }}
                 {% csrf_token %}
                 <button id="cancelAddPhotoButton" type="button" class="btn btn-light btn-sm">Cancel</button>
@@ -40,7 +42,8 @@
                 {{ edit_album_form | crispy }}
                 {% csrf_token %}
                 <button id="cancelEditAlbumButton" type="button" class="btn btn-light btn-sm">Cancel</button>
-                <button id="submitCreateAlbumButton" type="submit" class="btn btn-light btn-sm">Update your album</button>
+                <button id="submitCreateAlbumButton" type="submit" class="btn btn-light btn-sm">Update your
+                    album</button>
             </form>
         </div>
     </div>
@@ -50,47 +53,51 @@
 
 {% block main-tag %}
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col12 text-center">
-            <h1 id="albumName">{{album.name}}</h1>
-        </div>
-        <div class="col-12">
-            <p id="albumDescription">{{album.description}}</p>
-        </div>
-        <div class="col-12 col-lg-4">
-            {% if album.user.first_name != "" %}
-            <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
-            {% else %}
-            <p>Photographs taken by {{album.user}}</p>
-            {% endif %}
-        </div>
-        <div class="col-12 col-lg-4">
-            <p>Number of photos i album: {{photo_count}}</p>
-        </div>
-        <div class="col-12 col-lg-4">
-            <p>Last updated on {{album.updated_on}}</p>
-        </div>
-        {% for photo, comment_count in photo_pack %}
-        <div class="col-12 col-sm-6 col-lg-4 col-xxl-3 col-padding text-center">
-            <div class="album-thumbnail-styling">
-            <a href="/albums/photo/{{photo.pk}}" class="comment-counter">
-                <img src="{{photo.image.url}}" class="album-photo-thumbnail" alt="A photograph">
-
-                {% if comment_count > 0 %}
-                <br><i class="fa-solid fa-comments"></i> {{comment_count}}
-                {% endif %}
-            </a>
+<section> <!-- Information about album and photo thumbnails -->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col12 text-center">
+                <h1 id="albumName">{{album.name}}</h1>
             </div>
+            <div class="col-12">
+                <p id="albumDescription">{{album.description}}</p>
+            </div>
+            <div class="col-12 col-lg-4">
+                {% if album.user.first_name != "" %}
+                <p>Photographs taken by {{album.user.first_name}} {{album.user.last_name}}</p>
+                {% else %}
+                <p>Photographs taken by {{album.user}}</p>
+                {% endif %}
+            </div>
+            <div class="col-12 col-lg-4">
+                <p>Number of photos i album: {{photo_count}}</p>
+            </div>
+            <div class="col-12 col-lg-4">
+                <p>Last updated on {{album.updated_on}}</p>
+            </div>
+            <div class="col-12 text-center">
+                <a href="/albums/" class="btn btn-light">Back to Albums</a>
+            </div>
+            {% for photo, comment_count in photo_pack %}
+            <div class="col-12 col-sm-6 col-lg-4 col-xxl-3 col-padding text-center">
+                <div class="album-thumbnail-styling">
+                    <a href="/albums/photo/{{photo.pk}}" class="comment-counter">
+                        <img src="{{photo.image.url}}" class="album-photo-thumbnail" alt="A photograph">
+
+                        {% if comment_count > 0 %}
+                        <br><i class="fa-solid fa-comments"></i> {{comment_count}}
+                        {% endif %}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
 
-    <div class="col-12 text-center">
-        <a href="/albums/" class="btn btn-light">Back to Albums</a>
-
+        <div class="col-12 text-center">
+            <a href="/albums/" class="btn btn-light">Back to Albums</a>
+        </div>
     </div>
-</div>
+</section>
 
 <!-- Delete confirmation modal -->
 <!-- Reused from Code Institute I think therefore I blog walkthrough project -->

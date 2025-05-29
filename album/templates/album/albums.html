@@ -2,10 +2,13 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+<!-- In section for Login status and button for membership functions when needed -->
 {% block member-menu %}
-<button id="showFormButton" class="btn btn-light btn-sm">Create a new album</button>
-{% if has_albums %}
-<button id="showOwnAlbumsButton" class="btn btn-light btn-sm">View your albums</button>
+<div id="member-buttons">
+    <button id="showFormButton" class="btn btn-light btn-sm">Create a new album</button>
+    {% if has_albums %}
+    <button id="showOwnAlbumsButton" class="btn btn-light btn-sm">View your albums</button>
+</div>
 <div class="container-fluid" id="ownAlbumsContainer">
     <div class="row">
         {% for album in own_albums %}
@@ -15,8 +18,8 @@
         {% endfor %}
     </div>
 </div>
-
 {% endif %}
+
 <div id="createAlbumContainer" class="container-fluid">
     <div class="row">
         <div class="col-12 col-md-8 col-lg-6 col-xl-4">
@@ -34,31 +37,33 @@
 
 {% block main-tag %}
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1>Albums</h1>
+<section> <!-- Album overview, including thumbnails-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1>Albums</h1>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        {% for album, photos, photo_counts in albums_preview %}
-        <div class="col-12 col-md-6 col-xl-4">
-            <a href="/albums/{{album.pk}}" class=" albums-link">
-                <h2>{{album}}</h2>
-                <p>{{album.description}}</p>
-                <p>Photos in album: {{photo_counts}}</p>
-                <div>
-                    {% for photo in photos %}
-                    <div class="albums-thumbnail-styling">
-                        <img src="{{photo.image.url}}" class="albums-preview-thumbnail" alt="A photograph">
+        <div class="row">
+            {% for album, photos, photo_counts in albums_preview %}
+            <div class="col-12 col-md-6 col-xl-4">
+                <a href="/albums/{{album.pk}}" class=" albums-link">
+                    <h2>{{album}}</h2>
+                    <p>{{album.description}}</p>
+                    <p>Photos in album: {{photo_counts}}</p>
+                    <div>
+                        {% for photo in photos %}
+                        <div class="albums-thumbnail-styling">
+                            <img src="{{photo.image.url}}" class="albums-preview-thumbnail" alt="A photograph">
+                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
-                </div>
-            </a>
+                </a>
+            </div>
+            {%endfor%}
         </div>
-        {%endfor%}
     </div>
-</div>
+</section>
 
 
 

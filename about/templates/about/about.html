@@ -8,32 +8,45 @@ About ShutterClickers
 
 {% block main-tag %}
 
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class= "col-12 text-center">
-            <h1>About us</h1>
-        </div>
-        <div class="col-12 col-md-8">
-            <p>The ShutterClickers Photoclub was founded in 2021 by students at Springfieldville Collage. While many of our members are students, we welcome 
-                any and all interested in the various aspects of photography.</p>
-            <p>We have two meetings every month, one where we focus on taking pictures and one more theoretical when we look at pictures, learn about camera 
-                settings, editing and so on. The schedule is sent out four times a year to all members.</p>
-        </div>
-        <div class="col-12 text-center">
-            <h1>Contact us</h1>
-        </div>
-        <div class="col-12 col-md-8">
-            To get in contact with us, please send out the form below and our webmaster will reply to you, usually within three days but on some occasions you 
-            might have to wait a little bit longer.
-        </div>
-        <div class="col-12 col-md-8">
-             <form id="commentForm" method="post" style="margin-top: 1.3em;">
-                            {{ contact_form | crispy }}
-                            {% csrf_token %}
-                            <button id="submitButton" type="submit" class="btn btn-light btn-sm">Submit</button>
-                        </form>
+<section> <!-- About information -->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h1>About us</h1>
+            </div>
+            <div class="col-12 col-md-8">
+                <p>The ShutterClickers Photoclub was founded in 2021 by students at Springfieldville Collage. While many
+                    of our members are students, we welcome
+                    any and all interested in the various aspects of photography.</p>
+                <p>We have two meetings every month, one where we focus on taking pictures and one more theoretical when
+                    we look at pictures, learn about camera
+                    settings, editing and so on. The schedule is sent out four times a year to all members.</p>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
+<section> <!-- Contact form -->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h1>Contact us</h1>
+            </div>
+            <div class="col-12 col-md-8">
+                To get in contact with us, please send out the form below and our webmaster will reply to you, usually
+                within three
+                days but on some occasions you
+                might have to wait a little bit longer.
+            </div>
+            <div class="col-12 col-md-8">
+                <form id="commentForm" method="post" style="margin-top: 1.3em;">
+                    {{ contact_form | crispy }}
+                    {% csrf_token %}
+                    <button id="submitButton" type="submit" class="btn btn-light btn-sm">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 
 {% endblock main-tag %}
