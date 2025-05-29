@@ -49,6 +49,25 @@ a {
     text-decoration: none;
 }
 
+.login-status{
+    margin-top: 0px;
+}
+
+.login-name{
+    display: inline-block;
+    background-color: #f8f9fa;  /* Same as btn-light */
+    color: var(--background-color);
+    margin-left: -3px;
+    padding-right: 10px;
+    padding-left: 5px;
+    transform: skew(-15deg);
+}
+
+.unskew{
+    transform: skew(15deg);
+}
+
+
 /***** Grid styling *****/
 
 .col-padding {
@@ -192,15 +211,6 @@ td{
     margin: 10px;
 }
 
-#cover-text {
-    font-size: 130%;
-    position: absolute;
-    width: 80%;
-    min-height: 200px;
-    bottom: 30px;
-    padding-top: 40px;
-    padding-left: 10px;
-}
 
 /***** TEST CSS *****/
 /***** FOR DEVELOPMENT PURPOSES ONLY *****/

@@ -60,21 +60,30 @@
             </div>
         </nav>
 
-        <section id="hero">
+        <div id="hero">
             <div id="cover-text">
                 <h1>ShutterClickers<br>Photo Club</h1>
 
             </div>
-        </section>
-        <div id="login_status">
+        </div>
+        <div class="login-status">
             {% if user.is_authenticated %}
-            <p>You are logged in as {{ user.username }}</p>
-                {% if user_is_member %}
-                    {% block member-menu %}
-                    {% endblock member-menu %}
-                {% endif %}
+            <div class="login-name">
+                <div class="unskew">
+                    You are logged in as {{ user.username }}
+                </div>
+            </div>
+            {% if user_is_member %}
+            {% block member-menu %}
+            {% endblock member-menu %}
+            {% endif %}
             {% else %}
-            <p>You are not logged in</p>
+            <div class="login-name">
+                <div class="unskew">
+                    You are not logged in
+                </div>
+            </div>
+
             {% endif %}
         </div>
         <div id="messages">
@@ -93,48 +102,8 @@
         </div>
     </header>
     <main>
-        {% block main-tag %}
         <!-- Main content block, with default grid system for testing-->
-
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h1>Headline 1</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-4">
-                    <h2>Column 1</h2>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas labore pariatur sapiente autem
-                    voluptate vitae nihil in, commodi optio eum, culpa illo totam nulla cupiditate nam quae
-                    necessitatibus sequi debitis?
-                    <br>
-                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo odit optio modi! Libero iste illo
-                    reprehenderit saepe dolore maxime exercitationem, nostrum modi veritatis, odio error iure tenetur
-                    magni pariatur voluptate.
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam provident aliquam molestiae.
-                    Suscipit ab sed, sit minima illo ut aut architecto, nam ipsam fuga autem. Ipsum, quisquam.
-                    Exercitationem, tenetur! Voluptate?
-                    <br>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo odit optio modi! Libero iste illo
-                    reprehenderit saepe dolore maxime exercitationem, nostrum modi veritatis, odio error iure tenetur
-                    magni pariatur voluptate.-->
-                </div>
-                <div class="col-lg-4">
-                    <h2>Column 2</h2>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae minima voluptatem doloribus quod
-                    reprehenderit natus, ullam iure mollitia nobis molestiae doloremque facilis et? Dicta repellat,
-                    assumenda omnis dolore facere minima.
-                </div>
-                <div class="col-lg-4">
-                    <h2>Column 3</h2>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae minima voluptatem doloribus quod
-                    reprehenderit natus, ullam iure mollitia nobis molestiae doloremque facilis et? Dicta repellat,
-                    assumenda omnis dolore facere minima.
-                </div>
-            </div>
-        </div>
+        {% block main-tag %}
 
         {% endblock main-tag %}
 
@@ -150,9 +119,10 @@
         integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"
         crossorigin="anonymous"></script>
     <!-- JQUERY -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-        crossorigin="anonymous"></script>
-        
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- Block Extras, used for javascript only relatiting to a specific page -->
     {% block extras %}
     {% endblock extras %}
 </body>
