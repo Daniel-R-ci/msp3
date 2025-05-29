@@ -4,21 +4,29 @@
 
 <!-- In section for Login status and button for membership functions when needed -->
 {% block member-menu %}
+
 <div id="member-buttons">
     <button id="showFormButton" class="btn btn-light btn-sm">Create a new album</button>
+
     {% if has_albums %}
+
     <button id="showOwnAlbumsButton" class="btn btn-light btn-sm">View your albums</button>
 </div>
 <div class="container-fluid" id="ownAlbumsContainer">
     <div class="row">
         {% for album in own_albums %}
+
         <div class="col-12 col-sm-6 col md-3 col-lg-2 test-border">
             <a href="/albums/{{album.pk}}">{{album.name}}</a>
         </div>
+
         {% endfor %}
+
     </div>
+
+    {% endif %}
+    
 </div>
-{% endif %}
 
 <div id="createAlbumContainer" class="container-fluid">
     <div class="row">
@@ -33,7 +41,9 @@
         </div>
     </div>
 </div>
+
 {% endblock member-menu %}
+
 
 {% block main-tag %}
 
@@ -45,7 +55,9 @@
             </div>
         </div>
         <div class="row">
+
             {% for album, photos, photo_counts in albums_preview %}
+
             <div class="col-12 col-md-6 col-xl-4">
                 <a href="/albums/{{album.pk}}" class=" albums-link">
                     <h2>{{album}}</h2>
@@ -60,20 +72,17 @@
                     </div>
                 </a>
             </div>
+
             {%endfor%}
+
         </div>
     </div>
 </section>
 
-
-
-
 {% endblock main-tag %}
 
 {% block extras %}
-
 {% if user_is_member %}
 <script src="{% static 'js/albums.js' %}"></script>
 {% endif %}
-
 {% endblock extras %}
