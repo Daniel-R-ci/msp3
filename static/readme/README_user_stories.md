@@ -14,11 +14,9 @@ As a ***webmaster***, I would ***need to have full access to the site*** in orde
 
 - An admin page will total rights
 
-
 **Tasks**
 
 - Implement an functional and visibly pleasing Django Admin interface where all necessary inforamtion is presented in a clear and easy way
-
 
 ### Member - Album and photo handling
 
@@ -112,5 +110,4 @@ As a ***visitor to the site***, I would like to ***register to become a user***,
 **Task**
 
 - Implement a sign up form that registers a new user
-
 
