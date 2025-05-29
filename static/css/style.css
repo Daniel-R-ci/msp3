@@ -118,6 +118,17 @@ a {
     position: relative;
 }
 
+#cover-text {
+  /* Final rbga value sets opacity so it's semi-transparent */
+  font-size: 130%;
+  position: absolute;
+  width: 80%;
+  min-height: 200px;
+  bottom: 30px;
+  padding-top: 40px;
+  padding-left: 10px;
+}
+
 /***** Albums (albums.html) styling *****/
 
 .albums-thumbnail-styling {
