@@ -14,18 +14,19 @@
 </div>
 <div class="container-fluid" id="ownAlbumsContainer">
     <div class="row">
-        {% for album in own_albums %}
+        <div class="col-12">
+            <ul>
+                {% for album in own_albums %}
 
-        <div class="col-12 col-sm-6 col md-3 col-lg-2 test-border">
-            <a href="/albums/{{album.pk}}">{{album.name}}</a>
+                <li class="album-list url"><a href="/albums/{{album.pk}}">{{album.name}}</a></li>
+
+                {% endfor %}
+            </ul>
         </div>
-
-        {% endfor %}
-
     </div>
 
     {% endif %}
-    
+
 </div>
 
 <div id="createAlbumContainer" class="container-fluid">
