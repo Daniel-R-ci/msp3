@@ -36,7 +36,7 @@ def album_list(request):
     """
 
     # Get all published albums
-    albums = Album.objects.filter(status=Album.Status.PUBLISHED).order_by("-updated_on")
+    albums = Album.objects.filter(status=Album.Status.PUBLISHED).order_by("-updated_on") # noqa
 
     photos = []
     photo_counts = []
@@ -283,7 +283,7 @@ def photo_add(request, album_id):
             messages.add_message(
                 request, messages.SUCCESS,
                 'Your photo has been uploaded!'
-            )  
+            )
         else:
             print(add_photo_form.fields)
             messages.add_message(
