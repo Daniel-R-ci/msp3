@@ -34,7 +34,7 @@ def album_list(request):
     """
 
     # Get all published albums
-    albums = Album.objects.filter(status=Album.Status.PUBLISHED)
+    albums = Album.objects.filter(status=Album.Status.PUBLISHED).order_by("-updated_on")
 
     photos = []
     photo_counts = []

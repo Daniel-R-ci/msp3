@@ -63,7 +63,10 @@
                 <a href="/albums/{{album.pk}}" class=" albums-link">
                     <h2>{{album}}</h2>
                     <p>{{album.description}}</p>
-                    <p>Photos in album: {{photo_counts}}</p>
+                    <p>
+                        Photos in album: {{photo_counts}}<br>
+                        Last updated: {{album.updated_on}}
+                    </p>
                     <div>
                         {% for photo in photos %}
                         <div class="albums-thumbnail-styling">
