@@ -9,9 +9,8 @@
     --background-color: #000000;
     --headline-color: #ECE2D0;
     --font-color: #f6f0ed;
-    /* --url-color: #fe5d26; */
-    --url-color: salmon;
-    --url-hover-color: orangered;
+    --url-color: #fa8072;
+    --url-hover-color: #ba3f1d;
 }
 
 /***** html tags *****/
@@ -33,7 +32,7 @@ footer {
 
 h1, h2, h3{
     color: var(--headline-color);
-    font-family: var(--headline-font)
+    font-family: var(--headline-font);
 }
 
 /*h1{
@@ -183,10 +182,15 @@ h2{
     background-color: #333333;
     border: 2px solid darkgray;
     border-radius: 10%;
+    
+
 }
 
-.comment-counter {
-    color: var(--font-color)
+.album-thumbnail-styling a {
+    color: var(--font-color);
+    text-decoration: none;
+   
+    
 }
 
 /***** Photo (photo.html styling *****/
@@ -260,7 +264,7 @@ h2{
 @media(min-width: 768px) {
 
     .album-photo-thumbnail {
-        width: 360x;
+        width: 360px;
         height: 360px;
     }
 

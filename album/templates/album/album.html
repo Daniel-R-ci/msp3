@@ -91,8 +91,8 @@
             {% for photo, comment_count in photo_pack %}
 
             <div class="col-12 col-sm-6 col-lg-4 col-xxl-3 col-padding text-center">
-                <div class="album-thumbnail-styling">
-                    <a href="/albums/photo/{{photo.pk}}" class="comment-counter">
+                <div class="album-thumbnail-styling comment-counter">
+                    <a href="/albums/photo/{{photo.pk}}">
                         <img src="{{photo.image.url}}" class="album-photo-thumbnail" alt="A photograph">
 
                         {% if comment_count > 0 %}

@@ -38,7 +38,7 @@ $(document).ready(function () {
     for (let button of deleteButtons) {
         button.addEventListener("click", (e) => {
             let commentId = e.target.getAttribute("data-comment_id");
-            let photoId = e.target.getAttribute("data-photo_id")
+            let photoId = e.target.getAttribute("data-photo_id");
             document.getElementById("submitButton").getAttribute("data-photo_id");
             deleteCommentConfirm.href = `${photoId}/delete_comment/${commentId}`;
             deleteCommentModal.show();
@@ -65,4 +65,4 @@ $(document).ready(function () {
         deletePhotoModal.show();
     });
 
-})
+});

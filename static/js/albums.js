@@ -9,7 +9,7 @@ $(document).ready(function(){
     $("#showFormButton").click(function(){
         $("#createAlbumContainer").show();
         $("#showFormButton").hide();
-    })
+    });
 
     //Create event handler for Cancel button
     $("#cancelCreateButton").click(function(){
@@ -17,12 +17,12 @@ $(document).ready(function(){
         $("#id_name").val(" "); //Field won't close if it is empty
 
         $("#createAlbumContainer").hide();
-    })
+    });
 
     //Create event handler for View your albums button
     $("#showOwnAlbumsButton").click(function(){
         $("#ownAlbumsContainer").toggle();
-    })
+    });
      
 
-})
+});

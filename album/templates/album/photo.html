@@ -108,6 +108,12 @@ Photo by
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+                <h2>Comments</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
                 {% if photocomments_count == 0 and not user.is_authenticated %}
 
                 <p>There are no comments to view. Log in and be the first to comment on this photograph. </p>
@@ -215,7 +221,8 @@ Photo by
 
 <!-- Delete confirmation modal -->
 <!-- Reused from Code Institute I think therefore I blog walkthrough project -->
-<div class="modal fade" id="deleteCommentModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteCommentModal" tabindex="-1" aria-labelledby="deleteCommentModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -237,7 +244,7 @@ Photo by
 
 <!-- Delete confirmation modal -->
 <!-- Reused from Code Institute I think therefore I blog walkthrough project -->
-<div class="modal fade" id="deletePhotoModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="deletePhotoModal" tabindex="-1" aria-labelledby="deletePhotoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -62,12 +62,12 @@
     </header>
 
     <main>
-        <section id="hero"> <!-- Hero image and site name -->
+        <div id="hero"> <!-- Hero image and site name -->
             <div id="cover-text">
                 <h1>ShutterClickers<br>Photo Club</h1>
             </div>
-        </section>
-        <section> <!-- Login status and button for membership functions when needed-->
+        </div>
+        <div> <!-- Login status and button for membership functions when needed-->
             <div class="login-status">
                 {% if user.is_authenticated %}
                 <div class="login-name">
@@ -87,8 +87,8 @@
                 </div>
                 {% endif %}
             </div>
-        </section>
-        <section> <!-- Displaying messages created in DJANGO -->
+        </div>
+        <div> <!-- Displaying messages created in DJANGO -->
             <div id="messages">
                 <div class="container">
                     <div class="row">
@@ -104,7 +104,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- Main content block -->
         {% block main-tag %}
@@ -128,7 +128,7 @@
     <!-- Block Extras, used for javascript only relatiting to a specific page -->
     {% block extras %}
     {% endblock extras %}
-    
+
 </body>
 
-</html
+</html>
