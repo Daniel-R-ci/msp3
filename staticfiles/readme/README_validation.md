@@ -2,7 +2,7 @@
 
 ## Full validation report
 
-### HTML Validation
+### HTML Validation with W3C
 
 For all views, the generated HTML-code has been copied from the browsers "View source" function and pasted into the "Validate by direct input form" on [W3C Markup Valiadtion Service](https://validator.w3.org/)
 
@@ -64,6 +64,14 @@ These warnings can not be worked around with the methods used and have been left
 
 (For some reasons, CSS Validator uses a mix of English and Swedish due to my language settings.)
 
+### Lighthouse reports
+
+All views were tested with a logged in member user since these views contains the most elements and objects and are likely to cause the most load on the server.  
+All SEO results first came up with a score of 91, due to the fact that meta description had been forgotten. After adding a suitable meta descripton in the template base.html, this was corrected for all genereated views.
+
+***Home view***
+![lighthouse_home](lighthouse_home.png)
+
 ### Javascript validation
 
 The three Javascript-files albums.js, album.js and photo.js where all tested in JSHint, as deployed on [https://daniel-r-ci.github.io/jshint/](https://daniel-r-ci.github.io/jshint/) after previous Code Institute Code Along lessons. They were tested with option **ES6** enabled.
@@ -74,5 +82,27 @@ All files had some missing semicolons that didn't affect functionality. After co
 Accessing outer variables like this isn't an unusal case, and enabling the function **Relaxed** approves the code without errors.  
 ![0 JS Errors remaining](validation_js_errorfree.png)
 
+### Python validation
+All .py files written or modified for this project has been tested in [CI Python Linter](https://pep8ci.herokuapp.com/) to check for errors and warnings  
+noqa comments has been used in some instances where lines in Python exceeded 79 characters. This has been done with restriction and only in these circumstances:
+    - Long strings of data settings, especially in settings.py
+    - Long strings of text to be submitted to user interface
+    - In urls files where needed, for increased readability and comparison between url's
 
+The following files has been tested
+- About app
+  - admin.py - No errors found
+  - forms.oy - No errors found
+  - urls.py - No errors found
+  - views.py - No errors found
+- Album app
+  - admin.py - No errors found
+  - forms.py - No errors found
+  - models.py - No errors found
+  - views.py - No errors found
+- Home app
+  - urls.py - No errors found
+  - views.py - No errors found
+
+  Some warnings may be found in other files created by Django, such as models.py in Home app since Home in current release isn't using any models and is only generating a static html page.
 
