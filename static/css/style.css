@@ -118,7 +118,6 @@ h2{
 #hero {
     height: 300px;
     width: 100%;
-    /*background-color: lightgreen;*/
     background: url("../images/hero.jpg") no-repeat center center/cover;
     position: relative;
 }
