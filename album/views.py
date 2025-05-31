@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.http import Http404
 from django.http import HttpResponseRedirect
 
+from datetime import datetime
+
 from .models import Album, Photo, PhotoComment
 from .forms import (
     CreateAlbumForm,
@@ -276,10 +278,12 @@ def photo_add(request, album_id):
             photo = add_photo_form.save(commit=False)
             photo.album = album
             photo.save()
+            album.updated_on = datetime.now()
+            album.save()
             messages.add_message(
                 request, messages.SUCCESS,
                 'Your photo has been uploaded!'
-            )
+            )  
         else:
             print(add_photo_form.fields)
             messages.add_message(
