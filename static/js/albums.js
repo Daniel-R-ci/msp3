@@ -8,12 +8,13 @@ $(document).ready(function(){
     //Create event handler to show form
     $("#showFormButton").click(function(){
         $("#createAlbumContainer").show();
-        $("#showFormButton").hide();
+        $("#memberButtons").hide();
+        $("#ownAlbumsContainer").hide();
     });
 
     //Create event handler for Cancel button
     $("#cancelCreateButton").click(function(){
-        $("showFormButton").show();
+        $("#memberButtons").show();
         $("#id_name").val(" "); //Field won't close if it is empty
 
         $("#createAlbumContainer").hide();
