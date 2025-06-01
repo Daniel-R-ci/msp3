@@ -133,6 +133,12 @@ h2{
   padding-left: 10px;
 }
 
+/***** Home (index.html) styling *****/
+
+.home-image{
+    width: 100%;
+}
+
 /***** Albums (albums.html) styling *****/
 
 .album-list{
