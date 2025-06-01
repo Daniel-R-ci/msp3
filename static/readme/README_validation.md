@@ -66,11 +66,38 @@ These warnings can not be worked around with the methods used and have been left
 
 ### Lighthouse reports
 
-All views were tested with a logged in member user since these views contains the most elements and objects and are likely to cause the most load on the server.  
+All views were tested with a logged in member user (where possible) since these views contains the most elements and objects and are likely to cause the most load on the server.  
 All SEO results first came up with a score of 91, due to the fact that meta description had been forgotten. After adding a suitable meta descripton in the template base.html, this was corrected for all genereated views.
 
-***Home view***
+***Home view***  
 ![lighthouse_home](lighthouse_home.png)
+
+**Albums view**  
+![lighthouse_album](lighthouse_albums.png)
+
+**Photo view**  
+![lighthouse_photo](lighthouse_photo.png)
+
+**About view**  
+![lighthouse_about](lighthouse_about.png)
+
+**Login view**  
+![lighthouse_login](lighthouse_login.png)
+
+**Logout view**  
+![lighthouse_logout](lighthouse_logout.png)
+
+**Signup view**  
+![lighthouse_signup](lighthouse_signup.png)
+
+**About test results**
+- **Performance:** The performance on album view is the lowest one. The performance score on album and photo views may vary depending on the number of photographs and the size of them. Since there would be many different members uploading images, the size and even the format may vary. One way to work on this would be to dive deeper into Cloudinary settings, since Cloudinary seems to have settings that can govern maximum size. However, there hasn't been time to look into this during this project.
+- **Assessibility:** The drop from 100 to 95 is due to a warning of low contrast between the black background and the salmon color used for urls. A second check was done with contrast checkers found on [Webaim](https://webaim.org/) and since the page and colors passed their checks, they have been left as is. (see picture below)
+- **Best practices:** Best practices were first even lower, due to the fact that images from cloudinary was loaded with http:// instead of https://. After adjusting this, the score rised to it's current setting of 78. The remaining issues are with third party cookies from Cloudinary, and Javascript being imported from outside sites (JQuery and Bootstrap). Running the test in Chrome Incognito mode brings the score up 100, so there is not much more to be done given the technique used for the project.
+- **SEO:** All SEO results first came up with a score of 91, due to the fact that meta description had been forgotten. After adding a suitable meta descripton in the template base.html, this was corrected for all genereated views.
+
+
+![wave_contrast](wave_contrast.png)
 
 ### Javascript validation
 
