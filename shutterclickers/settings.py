@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from django.contrib.messages import constants as messages
+import cloudinary
 
 if os.path.isfile('env.py'):
     import env # noqa in order to prevent warning env is not used
@@ -139,6 +140,8 @@ MESSAGE_TAGS = {
     messages.SUCCESS: 'alert-success',
     messages.ERROR: 'alert-danger',
 }
+
+cloudinary.config(secure=True)
 
 
 # Static files (CSS, JavaScript, Images)
