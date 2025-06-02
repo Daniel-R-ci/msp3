@@ -130,7 +130,7 @@ Photo by
 
             </div>
 
-            {% if user.is_authenticated %}
+            {% if user.is_authenticated and is_published%}
 
             <div class="col-12">
                 <hr>
@@ -194,7 +194,7 @@ Photo by
                     {{comment.comment}}
                 </div>
 
-                {% if user.is_authenticated and comment.user == user %}
+                {% if user.is_authenticated and comment.user == user and is_published %}
                 <p>
                     <button class="btn btn-light btn-edit btn-sm" data-comment_id="{{comment.pk}}"
                         data-photo_id="{{photo.pk}}">Edit</button>
@@ -217,7 +217,7 @@ Photo by
             </div>
         </div>
     </div>
-</section>>
+</section>
 
 <!-- Delete confirmation modal -->
 <!-- Reused from Code Institute I think therefore I blog walkthrough project -->

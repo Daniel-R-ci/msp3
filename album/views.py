@@ -27,7 +27,7 @@ def check_if_member(user):
 
 
 # Supply view to albums.html
-def album_list(request):
+def albums_view(request):
     """
     Supplies data to albums.html:
     return {
@@ -76,7 +76,7 @@ def album_list(request):
             "user_is_member": check_if_member(request.user),
             "create_album_form": create_album_form,
             "own_albums": own_albums,
-            "has_albums": has_albums
+            "has_albums": has_albums,
         }
     )
 
@@ -146,7 +146,7 @@ def photo_view(request, photo_id):
     Supplies data to photo.html:
     return{
     photo, photocomments, photocomments_count, comment_form,
-    edit_photo_form, user_is_member, user_is_owner
+    edit_photo_form, user_is_member, user_is_owner, is_published
     }
     """
 
@@ -167,6 +167,12 @@ def photo_view(request, photo_id):
         'technical': photo.technical
     })
 
+    # Check if photo is in published album
+    if photo.album.status == Album.Status.PUBLISHED:
+        is_published = True
+    else:
+        is_published = False
+
     # Read all photocomments and calculate number of approved comments
     photocomments = photo.comments.all().order_by("-created_on")
     photocomments_count = photo.comments.filter(approved=True).count()
@@ -186,6 +192,7 @@ def photo_view(request, photo_id):
          "edit_photo_form": edit_photo_form,
          "user_is_member": check_if_member(request.user),
          "user_is_owner": user_is_owner,
+         "is_published": is_published
          }
     )
 
