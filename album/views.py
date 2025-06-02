@@ -366,8 +366,11 @@ def photo_delete(request, photo_id):
 def photocomment_add(request, photo_id):
 
     # Get the requested photo
-    queryset = Photo.objects.all()
+    queryset = Photo.objects.all(filter)
     photo = get_object_or_404(queryset, pk=photo_id)
+
+    if photo.album.status == Album.Status.DRAFT:
+        raise Http404
 
     # Check for posting of new comment
     if request.method == "POST":
