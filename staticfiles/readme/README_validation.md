@@ -23,7 +23,7 @@ Only one warning was given for this view, and has been left without being correc
 
 ![Validation of albums view](validation_albums.png)
 
-Frankly, this has been left because I (Daniel) does not understand why it is shown here and not in the home view when they have a similar placement. Since it is a warning, it has been left and placed in project backlog to be reviewed in more detail if project is taken up again.
+Frankly, this has been left because we (student Daniel Rydell and mentor Spencer Barriball) does not understand why it is shown here and not in the home view when they have a similar placement. Since it is a warning, it has been left and placed in project backlog to be reviewed in more detail if project is taken up again.
 
 **Album view**
 
@@ -110,26 +110,27 @@ Accessing outer variables like this isn't an unusal case, and enabling the funct
 ![0 JS Errors remaining](validation_js_errorfree.png)
 
 ### Python validation
-All .py files written or modified for this project has been tested in [CI Python Linter](https://pep8ci.herokuapp.com/) to check for errors and warnings  
+All .py files written or modified for this project has been tested in [CI Python Linter](https://pep8ci.herokuapp.com/) to check for errors and warnings. 
 noqa comments has been used in some instances where lines in Python exceeded 79 characters. This has been done with restriction and only in these circumstances:
-    - Long strings of data settings, especially in settings.py
-    - Long strings of text to be submitted to user interface
-    - In urls files where needed, for increased readability and comparison between url's
+- Long strings of data settings, especially in settings.py
+- Long strings of text to be submitted to user interface for easier readability
+- In urls files where needed, for increased readability and comparison between url's
 
-The following files has been tested
+The following files has been tested and found free of errors or warnings
 - About app
-  - admin.py - No errors found
-  - forms.oy - No errors found
-  - urls.py - No errors found
-  - views.py - No errors found
+  - admin.py
+  - forms.oy
+  - urls.py
+  - views.py
 - Album app
-  - admin.py - No errors found
-  - forms.py - No errors found
-  - models.py - No errors found
-  - views.py - No errors found
+  - admin.py
+  - forms.py
+  - models.py
+  - views.py
+  - urls.py
 - Home app
-  - urls.py - No errors found
-  - views.py - No errors found
+  - urls.py
+  - views.py
 
   Some warnings may be found in other files created by Django, such as models.py in Home app since Home in current release isn't using any models and is only generating a static html page.
 
